@@ -64,10 +64,76 @@ void insertPos(int pos,int emt){
     
 }
 
+void deleteFirst(){
+    if(head == NULL){
+        printf("The List is Empty!\n");
+        return;
+    }
+    struct node * temp = head;
+    head = temp->next;
+    free(temp);
+    temp = NULL;
+}
+
+void deleteLast(){
+    if(head == NULL){
+        printf("The List is Empty!\n");
+        return;
+    }
+    struct node * temp = head;
+    if(temp->next == NULL){
+        deleteFirst();
+        return;
+    }
+    while(temp->next->next != NULL){
+        temp = temp->next;
+    }
+    
+    free(temp->next);
+    temp->next = NULL;
+    
+}
+
+void deletePos(int pos){
+    if(head == NULL){
+        printf("The List is Empty!\n");
+        return;
+    }
+    if(pos <= 0){
+        printf("\nNot a Valid Position.");
+        return;
+    }
+    if(pos == 1){
+        deleteFirst();
+        return;
+    }
+    int nCount = 0;
+    struct node * temp = head;
+    while(temp != NULL){
+        nCount++;
+        temp = temp->next;
+    }
+    if(pos > nCount){
+        printf("\nNot a Valid Position.");
+        return;
+    }
+    if(pos == nCount){
+        deleteLast();
+        return;
+    }
+    temp = head;
+    for(int i = 0; i < pos - 2; i++){
+        temp=temp->next;
+    }
+    struct node * temp1 = temp->next;
+    temp->next = temp->next->next;
+    free(temp1);
+    temp1 = NULL;
+}
 void display(){
     int nCount = 0;
     if(head == NULL){
-        printf("\nThe List is Empty!");
+        printf("The List is Empty!\n");
         return;
     }else{
         printf("\nThe List is : ");
@@ -89,14 +155,13 @@ int main(){
         printf("\n2.Insert at Last");
         printf("\n3.Insert at Specific Position");
         printf("\n4.Delete at First");
-        printf("\n5.Delete at First");
-        printf("\n6.Delete at Last");
-        printf("\n7.Insert at Specific Position");
-        printf("\n8.Update at First");
-        printf("\n9.Update at Last");
-        printf("\n10.Update at Specific Position");
-        printf("\n11.Sort");
-        printf("\n12.Search");
+        printf("\n5.Delete at Last");
+        printf("\n6.Delete at Specific Position");
+        printf("\n7.Update at First");
+        printf("\n8.Update at Last");
+        printf("\n9.Update at Specific Position");
+        printf("\n10.Sort");
+        printf("\n11.Search");
         printf("\n0.Exit");
         printf("\nEnter Your Choice : ");
         scanf("%d",&choice);
@@ -119,6 +184,20 @@ int main(){
                 printf("Enter the Element : ");
                 scanf("%d",&emt);
                 insertPos(pos,emt);
+                display();
+                break;
+            case 4:
+                deleteFirst();
+                display();
+                break;
+            case 5:
+                deleteLast();
+                display();
+                break;
+            case 6:
+                printf("Enter the Position : ");
+                scanf("%d",&pos);
+                deletePos(pos);
                 display();
                 break;
             case 0:

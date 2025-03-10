@@ -1,19 +1,19 @@
 #include "stdio.h"
 #include "stdlib.h"
 
-struct node{
+typedef struct node{
     int data;
     struct node * next;
-};
+}node;
 
-struct node * head = NULL;
+node * head = NULL;
 
-struct node * createNode(){
-    return (struct node *)malloc(sizeof(struct node));
+node * createNode(){
+    return (node *)malloc(sizeof(node));
 }
 
 void insertFirst(int emt){
-    struct node * temp = createNode();
+    node * temp = createNode();
     temp->data = emt;
     temp->next = head;
     head = temp;
@@ -24,11 +24,11 @@ void insertLast(int emt){
         insertFirst(emt);
         return;
     }
-    struct node * temp = head;
+    node * temp = head;
     while(temp->next != NULL){
         temp = temp->next;
     }
-    struct node * nn = createNode();
+    node * nn = createNode();
     nn->data = emt;
     nn->next = NULL;
     temp->next = nn;
@@ -44,7 +44,7 @@ void insertPos(int pos,int emt){
         return;
     }
     int nCount = 0;
-    struct node * temp = head;
+    node * temp = head;
     while(temp != NULL){
         nCount++;
         temp = temp->next;
@@ -57,11 +57,10 @@ void insertPos(int pos,int emt){
     for(int i = 0;i < pos - 2; i++){ // pos - 2 means first head is skipped as temp is already at head and
         temp = temp->next;           // i've to traverse till the position before the required position to
     }                                // link the new node with the previous node
-    struct node * nn = createNode();
+    node * nn = createNode();
     nn->next = temp->next;
     nn->data = emt;
     temp->next = nn;
-    
 }
 
 void deleteFirst(){
@@ -69,7 +68,7 @@ void deleteFirst(){
         printf("The List is Empty!\n");
         return;
     }
-    struct node * temp = head;
+    node * temp = head;
     head = temp->next;
     free(temp);
     temp = NULL;
@@ -80,7 +79,7 @@ void deleteLast(){
         printf("The List is Empty!\n");
         return;
     }
-    struct node * temp = head;
+    node * temp = head;
     if(temp->next == NULL){
         deleteFirst();
         return;
@@ -108,7 +107,7 @@ void deletePos(int pos){
         return;
     }
     int nCount = 0;
-    struct node * temp = head;
+    node * temp = head;
     while(temp != NULL){
         nCount++;
         temp = temp->next;
@@ -122,13 +121,68 @@ void deletePos(int pos){
         return;
     }
     temp = head;
-    for(int i = 0; i < pos - 2; i++){
-        temp=temp->next;
-    }
-    struct node * temp1 = temp->next;
+    for(int i = 0; i < pos - 2; i++){   // pos - 2 means first head is skipped as temp is already at head and
+        temp=temp->next;                // i've to traverse till the position before the required position to
+    }                                   // delete the node at this position
+    node * temp1 = temp->next;
     temp->next = temp->next->next;
     free(temp1);
     temp1 = NULL;
+}
+
+void updateFirst(int emt){
+    if(head == NULL){
+        printf("The List is Empty!\n");
+        return;
+    }
+    head->data = emt;
+}
+
+void updateLast(int emt){
+    if(head == NULL){
+        printf("The List is Empty!\n");
+        return;
+    }
+    node * temp = head;
+    while(temp->next != NULL){
+        temp = temp->next;
+    }
+    temp->data = emt;
+}
+
+void updatePos(int pos,int emt){
+    if(head == NULL){
+        printf("The List is Empty!\n");
+        return;
+    }
+    if(pos <= 0){
+        printf("\nNot a Valid Position.");
+        return;
+    }
+    if(pos == 1){
+        updateFirst(emt);
+        return;
+    }
+    int nCount = 0;
+    node * temp = head;
+    while(temp != NULL){
+        nCount++;
+        temp = temp->next;
+    }
+    if(pos > nCount){
+        printf("\nNot a Valid Position.");
+        return;
+    }
+    if(pos == nCount){
+        updateLast(emt);
+        return;
+    }
+    temp = head;
+    for(int i = 0; i < pos - 1; i++){   // pos - 2 means first head is skipped as temp is already at head and
+        temp=temp->next;                // i've to traverse till the position before the required position to
+    }                                   // delete the node at this position
+    temp->data = emt;
+    return;
 }
 void display(){
     int nCount = 0;
@@ -137,7 +191,7 @@ void display(){
         return;
     }else{
         printf("\nThe List is : ");
-        struct node * temp = head;
+       node * temp = head;
     while(temp != NULL){
         nCount++;
         printf("%d->",temp->data);
@@ -198,6 +252,26 @@ int main(){
                 printf("Enter the Position : ");
                 scanf("%d",&pos);
                 deletePos(pos);
+                display();
+                break;
+            case 7:
+                printf("Enter the Element : ");
+                scanf("%d",&emt);
+                updateFirst(emt);
+                display();
+                break;
+            case 8:
+                printf("Enter the Element : ");
+                scanf("%d",&emt);
+                updateLast(emt);
+                display();
+                break;
+            case 9: 
+                printf("Enter the Position : ");
+                scanf("%d",&pos);
+                printf("Enter the Element : ");
+                scanf("%d",&emt);
+                updatePos(pos,emt);
                 display();
                 break;
             case 0:

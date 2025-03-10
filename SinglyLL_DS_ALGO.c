@@ -178,12 +178,32 @@ void updatePos(int pos,int emt){
         return;
     }
     temp = head;
-    for(int i = 0; i < pos - 1; i++){   // pos - 2 means first head is skipped as temp is already at head and
-        temp=temp->next;                // i've to traverse till the position before the required position to
-    }                                   // delete the node at this position
+    for(int i = 0; i < pos - 1; i++){   // pos - 1 means first head is skipped as temp is already at head and
+        temp=temp->next;                // i've to traverse till the position that is to be updated
+    }                                  
     temp->data = emt;
     return;
 }
+
+void search(int key){
+    if(head == NULL){
+        printf("The List is Empty!\n");
+        return;
+    }
+    int nCount = 0;
+    node * temp = head;
+    while(temp->next != NULL){
+        nCount++;
+        if(temp->data == key){
+            printf("The Key Element Found at Position : %d",nCount);
+            return;
+        }
+        temp = temp->next;
+    }
+    printf("Key Element not Found!");
+    return;
+}
+
 void display(){
     int nCount = 0;
     if(head == NULL){
@@ -273,6 +293,13 @@ int main(){
                 scanf("%d",&emt);
                 updatePos(pos,emt);
                 display();
+                break;
+            case 10:
+                break;
+            case 11:
+                printf("Enter the Key Element : ");
+                scanf("%d",&emt);
+                search(emt);
                 break;
             case 0:
                 printf("Exiting...");

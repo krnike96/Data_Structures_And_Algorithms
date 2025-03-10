@@ -204,7 +204,29 @@ void search(int key){
     return;
 }
 
-void display(){
+void bubbleSort(){
+    if(head == NULL || head->next == NULL){
+        printf("The List is Empty or Single Element!\n");
+        return;
+    }
+    node * temp;
+    node * end = NULL;
+    int swap;
+    do{
+        swap = 0;
+        temp = head;
+        while(temp->next != end){      //running the loop till it reaches the end oof the list
+            if(temp->data > temp->next->data){
+                temp->data ^= temp->next->data ^= temp->data ^= temp->next->data;
+                swap = 1;
+            }
+            temp = temp->next;
+        }
+        end = temp; //pointing the end to one step backwards as the largest element is at the end 
+                    //so no need to check that element
+    }while(swap);
+}
+void display(){ 
     int nCount = 0;
     if(head == NULL){
         printf("The List is Empty!\n");
@@ -225,6 +247,7 @@ void display(){
 int main(){
     int choice,emt,pos;
     while(1){
+        printf("\nSingly LL");
         printf("\n1.Insert at First");
         printf("\n2.Insert at Last");
         printf("\n3.Insert at Specific Position");
@@ -234,8 +257,9 @@ int main(){
         printf("\n7.Update at First");
         printf("\n8.Update at Last");
         printf("\n9.Update at Specific Position");
-        printf("\n10.Sort");
-        printf("\n11.Search");
+        printf("\n10.Sort(Elemental)");
+        printf("\n11.Search(Linear)");
+        printf("\n12.Display List");
         printf("\n0.Exit");
         printf("\nEnter Your Choice : ");
         scanf("%d",&choice);
@@ -295,11 +319,16 @@ int main(){
                 display();
                 break;
             case 10:
+                bubbleSort();
+                display();
                 break;
             case 11:
                 printf("Enter the Key Element : ");
                 scanf("%d",&emt);
                 search(emt);
+                break;
+            case 12:
+                display();
                 break;
             case 0:
                 printf("Exiting...");

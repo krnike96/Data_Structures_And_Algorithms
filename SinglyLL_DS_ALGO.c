@@ -42,7 +42,7 @@ void insertLast(int emt)
 
 void insertPos(int pos, int emt)
 {
-    if (pos == 0)
+    if (pos <= 0)
     {
         printf("\nNot a Valid Position.");
         return;
@@ -246,8 +246,8 @@ void bubbleSort()
         printf("The List is Empty or Single Element!\n");
         return;
     }
-    node * temp;
-    node * end = NULL;
+    node *temp;
+    node *end = NULL;
     int swap;
     do
     {
@@ -277,7 +277,7 @@ void display()
     {
         int nCount = 0;
         printf("\nThe List is : ");
-        node * temp = head;
+        node *temp = head;
         while (temp != NULL)
         {
             nCount++;

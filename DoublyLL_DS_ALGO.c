@@ -139,6 +139,22 @@ void display(node **head){
     printf("NULL");
     printf("\nNo. of Nodes : %d",nCount);
 }
+void displayRev(node **head){
+    if(*head == NULL){
+        printf("\nDLL is Empty!");
+        return;
+    }
+    node * temp = *head;
+    while(temp->next != NULL){
+        temp = temp->next;
+    }
+    printf("NULL");
+    while(temp != NULL){
+        printf("<-%d",temp->data);
+        temp = temp->prev;
+    }
+    printf("\nNo. of Nodes : %d",nCount);
+}
 
 int main(){
     node * head = NULL;
@@ -157,6 +173,7 @@ int main(){
         printf("\n10.Sort(Elemental)");
         printf("\n11.Search");
         printf("\n12.Display");
+        printf("\n13.Display in Reverse");
         printf("\n0.Exit");
         printf("\nEnter Your Choice : ");
         scanf("%d",&choice);
@@ -194,6 +211,12 @@ int main(){
                 scanf("%d",&pos);
                 deletePos(&head,pos);
                 display(&head);
+                break;
+            case 12:
+                display(&head);
+                break;
+            case 13:
+                displayRev(&head);
                 break;
             default:
                 printf("\nError 400 - Bad Behaviour");

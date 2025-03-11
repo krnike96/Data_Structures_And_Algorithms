@@ -163,8 +163,46 @@ void updatePos(node **head,int pos,int emt){
     }
     printf("Invalid Position!");
 }
-// void sort(node **);
-// void search(node **);
+void sort(node **head){
+    if(*head == NULL || (*head)->next == NULL){
+        return;
+    }
+    node * temp;
+    node * end = NULL;
+    int swap;
+    do{
+        swap = 0;
+        temp = *head;
+        while(temp->next != end){
+        if(temp->data > temp->next->data){
+            temp->data ^= temp->next->data ^= temp->data ^= temp->next->data;
+            swap = 1;
+        }
+            temp = temp->next;
+        }
+        end = temp;
+    }while(swap);
+}
+
+void search(node **head){
+    if(*head == NULL){
+        return;
+    }
+    int key;
+    printf("Enter the Key Element : ");
+    scanf("%d",&key);
+    node * temp = *head;
+    int pos = 1;
+    while(temp != NULL){
+        if(temp->data == key){
+            printf("The Key Element Found at Position : %d",pos);
+            return;
+        }
+        temp = temp->next;
+        pos++;
+    }
+    printf("The Key Element Not Found!");
+}
 void display(node **head){
     if(*head == NULL){
         printf("\nDLL is Empty!");
@@ -216,7 +254,7 @@ int main(){
         printf("\n8.Update At Last");
         printf("\n9.Update At Specific Position");
         printf("\n10.Sort(Elemental)");
-        printf("\n11.Search");
+        printf("\n11.Search(Linear)");
         printf("\n12.Display");
         printf("\n13.Display in Reverse");
         printf("\n0.Exit");
@@ -276,6 +314,13 @@ int main(){
                 scanf("%d",&emt);
                 updatePos(&head,pos,emt);
                 display(&head);
+                break;
+            case 10: 
+                sort(&head);
+                display(&head);
+                break;
+            case 11:
+                search(&head);
                 break;
             case 12:
                 display(&head);

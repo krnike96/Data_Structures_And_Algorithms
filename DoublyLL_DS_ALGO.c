@@ -1,3 +1,4 @@
+//Using Double Pointer
 #include "stdio.h"
 #include "stdlib.h"
 
@@ -49,10 +50,6 @@ void insertPos(node **head,int pos,int emt){
         printf("Invalid Position!");
         return;
     }
-    // if(pos == nCount){
-    //     insertLast(head,emt);
-    //     return;
-    // }
     node * temp = *head;
     node * nn = createNode();
     for(int i = 1;i < pos - 1; i++){
@@ -65,9 +62,65 @@ void insertPos(node **head,int pos,int emt){
     temp->next = nn;
     nCount++;
 }
-// void deleteFirst(node **);
-// void deleteLast(node **);
-// void deletePos(node **,int);
+void deleteFirst(node **head){
+    if(*head == NULL){
+        return;
+    }
+    node * temp = *head;
+    if(temp->next == NULL){
+        free(*head);
+        *head = NULL;
+    }else{
+    temp->next->prev = NULL;
+    *head = temp->next;
+    free(temp);
+    temp = NULL;
+    }
+    nCount--;
+}
+void deleteLast(node **head){
+    if(*head == NULL){
+        return;
+    }
+    if((*head)->next == NULL){
+        deleteFirst(head);
+        return;
+    }
+    node * temp = *head;
+    while(temp->next->next != NULL){
+        temp = temp->next;
+    }
+    free(temp->next);
+    temp->next = NULL;
+    nCount--;
+}
+void deletePos(node **head,int pos){
+    if(*head == NULL){
+        return;
+    }
+    if(pos <= 0 || pos > nCount){
+        printf("Invalid Position!");
+        return;
+    }
+    if(pos == 1){
+        deleteFirst(head);
+        return;
+    }
+    if(pos == nCount){
+        deleteLast(head);
+        return;
+    }
+    node * temp = *head;
+    for(int i = 1;i < pos - 1;i++){
+        temp = temp->next;
+    }
+    node * temp1 = *head;
+    temp1 = temp->next->next;
+    free(temp->next);
+    temp->next = temp1;
+    temp1->prev = temp;
+    nCount--;
+}
 // void updateFirst(node **);
 // void updateLast(node **);
 // void updatePos(node **,int);
@@ -75,7 +128,7 @@ void insertPos(node **head,int pos,int emt){
 // void search(node **);
 void display(node **head){
     if(*head == NULL){
-        printf("\nEnter the DLL is Empty!");
+        printf("\nDLL is Empty!");
         return;
     }
     node * temp = *head;
@@ -126,6 +179,20 @@ int main(){
                 printf("Enter the Element : ");
                 scanf("%d",&emt);
                 insertPos(&head,pos,emt);
+                display(&head);
+                break;
+            case 4:
+                deleteFirst(&head);
+                display(&head);
+                break;
+            case 5:
+                deleteLast(&head);
+                display(&head);
+                break;
+            case 6:
+                printf("Enter the Position : ");
+                scanf("%d",&pos);
+                deletePos(&head,pos);
                 display(&head);
                 break;
             default:

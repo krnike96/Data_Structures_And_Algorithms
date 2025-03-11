@@ -121,9 +121,48 @@ void deletePos(node **head,int pos){
     temp1->prev = temp;
     nCount--;
 }
-// void updateFirst(node **);
-// void updateLast(node **);
-// void updatePos(node **,int);
+void updateFirst(node **head,int emt){
+    if(*head == NULL){
+        return;
+    }
+    (*head)->data = emt;
+}
+void updateLast(node **head,int emt){
+    if(*head == NULL){
+        return;
+    }
+    node * temp = *head;
+    while(temp->next != NULL){
+        temp = temp->next;
+    }
+    temp->data = emt;
+}
+void updatePos(node **head,int pos,int emt){
+    if(*head == NULL){
+        return;
+    }
+    if (pos <= 0)
+    {
+        printf("\nNot a Valid Position.");
+        return;
+    }
+    if (pos == 1)
+    {
+        updateFirst(head,emt);
+        return;
+    }
+    int currPos = 2;
+    node * temp = *head;
+    while(temp != NULL){
+        temp = temp->next;
+        if(pos == currPos){
+            temp->data = emt;
+            return;
+        }
+        currPos++;
+    }
+    printf("Invalid Position!");
+}
 // void sort(node **);
 // void search(node **);
 void display(node **head){
@@ -132,12 +171,15 @@ void display(node **head){
         return;
     }
     node * temp = *head;
+    printf("#############################################\n\n");
+    printf("The DLL is : NULL->");
     while(temp != NULL){
         printf("%d->",temp->data);
         temp = temp->next;
     }
     printf("NULL");
-    printf("\nNo. of Nodes : %d",nCount);
+    printf("\nNodes Count : %d",nCount);
+    printf("\n\n#############################################");
 }
 void displayRev(node **head){
     if(*head == NULL){
@@ -148,12 +190,15 @@ void displayRev(node **head){
     while(temp->next != NULL){
         temp = temp->next;
     }
-    printf("NULL");
+    printf("#############################################\n\n");
+    printf("The DLL is : NULL");
     while(temp != NULL){
         printf("<-%d",temp->data);
         temp = temp->prev;
     }
-    printf("\nNo. of Nodes : %d",nCount);
+    printf("<-NULL");
+    printf("\nNodes Count : %d",nCount);
+    printf("\n\n#############################################");
 }
 
 int main(){
@@ -212,15 +257,38 @@ int main(){
                 deletePos(&head,pos);
                 display(&head);
                 break;
+            case 7:
+                printf("Enter the Element : ");
+                scanf("%d",&emt);
+                updateFirst(&head,emt);
+                display(&head);
+                break;
+            case 8:
+                printf("Enter the Element : ");
+                scanf("%d",&emt);
+                updateLast(&head,emt);
+                display(&head);
+                break;
+            case 9:
+                printf("Enter the Position : ");
+                scanf("%d",&pos);
+                printf("Enter the Element : ");
+                scanf("%d",&emt);
+                updatePos(&head,pos,emt);
+                display(&head);
+                break;
             case 12:
                 display(&head);
                 break;
             case 13:
                 displayRev(&head);
                 break;
-            default:
-                printf("\nError 400 - Bad Behaviour");
+            case 0:
+                printf("Exiting...");
                 return 0;
+            default:
+                printf("\nError Code : 404 - Not found!");
+                break;
         }
     }
     return 0;

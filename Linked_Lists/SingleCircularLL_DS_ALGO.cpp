@@ -26,8 +26,9 @@ namespace SCLL
                return nullptr;
           }
           nn->user = new (std::nothrow) data;
-          if(!nn->user){
-               std::cerr <<"Memory Allocation Failed" << std::endl;
+          if (!nn->user)
+          {
+               std::cerr << "Memory Allocation Failed" << std::endl;
                return nullptr;
           }
           return nn;
@@ -39,11 +40,15 @@ void insertFirst(SCLL::node **head, string name, int age)
      SCLL::node *nn = SCLL::createNode();
      nn->user->name = name;
      nn->user->age = age;
-     if(*head == nullptr){
+     if (*head == nullptr)
+     {
           nn->next = nn;
-     }else{
+     }
+     else
+     {
           SCLL::node *LastNode = *head;
-          while(LastNode->next != *head){
+          while (LastNode->next != *head)
+          {
                LastNode = LastNode->next;
           }
           nn->next = *head;
@@ -53,7 +58,24 @@ void insertFirst(SCLL::node **head, string name, int age)
      nCount++;
      return;
 }
-// void insertLast(node **head, string name, int age, int sly);
+void insertLast(SCLL::node **head, string name, int age){
+     if(*head ==nullptr){
+          insertFirst(head,name,age);
+          return;
+     }
+     SCLL::node *nn = SCLL::createNode();
+     nn->user->name = name;
+     nn->user->age = age;
+     SCLL::node *temp = *head;
+     while(1){
+          temp=temp->next;
+          if(temp->next == *head) break;
+     }
+     temp->next = nn;
+     nn->next = *head;
+     nCount++;
+     return;
+}
 // void insertPos(node **head, string name, int age, int sly, int pos);
 // void deleteFirst(node **head, string name, int age, int sly);
 // void deleteLast(node **head, string name, int age, int sly);
@@ -65,20 +87,25 @@ void insertFirst(SCLL::node **head, string name, int age)
 // void search(node **head, string name); // Function Overloading
 // void search(node **head, int age);     // Function Overloading
 // void search(node **head, int sly);     // Function OVerloading
-void display(SCLL::node **head){
-     if(*head == nullptr){
-          cout<<"The List is Empty!"<<endl;
+void display(SCLL::node **head)
+{
+     if (*head == nullptr)
+     {
+          cout << "The List is Empty!" << endl;
           return;
      }
      SCLL::node *temp = *head;
-     cout<<endl<<"The List is : ";
-     while(true){
-          cout<<"("<<temp->user->name<<"-"<<temp->user->age<<")->";
+     cout << endl
+          << "The List is : ";
+     while (true)
+     {
+          cout << "(" << temp->user->name << "-" << temp->user->age << ")->";
           temp = temp->next;
-          if(temp == *head) break;
+          if (temp == *head)
+               break;
      }
-     cout<<"Head"<<endl;
-     cout<<"Nodes : "<<nCount<<endl;
+     cout << "Head" << endl;
+     cout << "Nodes : " << nCount << endl;
 }
 // void displayReverse(node **head);
 
@@ -116,6 +143,8 @@ int main()
           cout << endl
                << "12.Display";
           cout << endl
+               << "13.Reverse Display";
+          cout << endl
                << "0.Exit";
           cout << endl
                << "Enter Your Choice : ";
@@ -125,11 +154,24 @@ int main()
           case 1:
                cout << endl
                     << "Enter the User's Name : ";
-               cin>>name;
+               cin >> name;
                cout << endl
                     << "Enter the User's Age : ";
                cin >> age;
                insertFirst(&head, name, age);
+               display(&head);
+               break;
+          case 2:
+               cout << endl
+                    << "Enter the User's Name : ";
+               cin >> name;
+               cout << endl
+                    << "Enter the User's Age : ";
+               cin >> age;
+               insertLast(&head, name, age);
+               display(&head);
+               break;
+          case 12:
                display(&head);
                break;
           case 0:

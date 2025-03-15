@@ -58,35 +58,64 @@ void insertFirst(SCLL::node **head, string name, int age)
      nCount++;
      return;
 }
-void insertLast(SCLL::node **head, string name, int age){
-     if(*head ==nullptr){
-          insertFirst(head,name,age);
+void insertLast(SCLL::node **head, string name, int age)
+{
+     if (*head == nullptr)
+     {
+          insertFirst(head, name, age);
           return;
      }
      SCLL::node *nn = SCLL::createNode();
      nn->user->name = name;
      nn->user->age = age;
      SCLL::node *temp = *head;
-     while(1){
-          temp=temp->next;
-          if(temp->next == *head) break;
+     while (1)
+     {
+          temp = temp->next;
+          if (temp->next == *head)
+               break;
      }
      temp->next = nn;
      nn->next = *head;
      nCount++;
      return;
 }
-// void insertPos(node **head, string name, int age, int sly, int pos);
-// void deleteFirst(node **head, string name, int age, int sly);
-// void deleteLast(node **head, string name, int age, int sly);
-// void deletePos(node **head, string name, int age, int sly, int pos);
-// void updateFirst(node **head, string name, int age, int sly);
-// void updateLast(node **head, string name, int age, int sly);
-// void updatePos(node **head, string name, int age, int sly, int pos);
-// void sort(node **head);
-// void search(node **head, string name); // Function Overloading
-// void search(node **head, int age);     // Function Overloading
-// void search(node **head, int sly);     // Function OVerloading
+void insertPos(SCLL::node **head, string name, int age, int pos)
+{
+     if (pos < 1 || pos > nCount + 1)
+     {
+          cout << "Invalid Position!";
+          return;
+     }
+     if (pos == 1)
+     {
+          insertFirst(head, name, age);
+          return;
+     }
+     // if(pos == nCount){
+     //      insertLast(head,name,age);
+     //      return;
+     // }
+     SCLL::node *temp = *head;
+     for(int i = 1; i < pos - 1; i++){
+          temp = temp->next;
+     }
+     SCLL::node *nn = SCLL::createNode();
+     nn->user->name = name;
+     nn->user->age = age;
+     nn->next = temp->next;
+     temp->next = nn;
+     nCount++;
+}
+// void deleteFirst(SCLL::node **head, string name, int age, int sly);
+// void deleteLast(SCLL::node **head, string name, int age, int sly);
+// void deletePos(SCLL::node **head, string name, int age, int sly, int pos);
+// void updateFirst(SCLL::node **head, string name, int age, int sly);
+// void updateLast(SCLL::node **head, string name, int age, int sly);
+// void updatePos(SCLL::node **head, string name, int age, int sly, int pos);
+// void sort(SCLL::node **head);
+// void search(SCLL::node **head, string name); // Function Overloading
+// void search(SCLL::node **head, int age);     // Function Overloading
 void display(SCLL::node **head)
 {
      if (*head == nullptr)
@@ -169,6 +198,19 @@ int main()
                     << "Enter the User's Age : ";
                cin >> age;
                insertLast(&head, name, age);
+               display(&head);
+               break;
+          case 3:
+               cout << endl
+                    << "Enter the Position : ";
+                    cin >> pos;
+               cout << endl
+                    <<"Enter the Name : ";
+                    cin >> name;
+               cout << endl
+                    << "Enter the Age : ";
+                    cin >> age;
+               insertPos(&head,name,age,pos);
                display(&head);
                break;
           case 12:

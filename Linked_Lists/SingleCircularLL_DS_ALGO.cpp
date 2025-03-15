@@ -179,55 +179,147 @@ void deletePos(SCLL::node **head, int pos)
      temp1 = nullptr;
      nCount--;
 }
-void updateFirst(SCLL::node **head, string name, int age){
-     if(*head == nullptr){
+void updateFirst(SCLL::node **head, string name, int age)
+{
+     if (*head == nullptr)
+     {
           cerr << "Invalid Operation!";
           return;
      }
      (*head)->user->name = name;
      (*head)->user->age = age;
 }
-void updateLast(SCLL::node **head, string name, int age){
-     if(*head == nullptr){
-          cerr<<"Invalid Operation!";
+void updateLast(SCLL::node **head, string name, int age)
+{
+     if (*head == nullptr)
+     {
+          cerr << "Invalid Operation!";
           return;
      }
      SCLL::node *temp = *head;
-     while(temp->next != *head){
+     while (temp->next != *head)
+     {
           temp = temp->next;
      }
      temp->user->name = name;
      temp->user->age = age;
 }
-void updatePos(SCLL::node **head, string name, int age, int pos){
-     if(*head == nullptr){
-          cerr<<"Invalid Operation!";
+void updatePos(SCLL::node **head, string name, int age, int pos)
+{
+     if (*head == nullptr)
+     {
+          cerr << "Invalid Operation!";
           return;
      }
-     if(pos < 1 || pos > nCount){
-          cerr<<"Invalid Operation!";
+     if (pos < 1 || pos > nCount)
+     {
+          cerr << "Invalid Operation!";
           return;
      }
-     if(pos == 1){
-          updateFirst(head,name,age);
+     if (pos == 1)
+     {
+          updateFirst(head, name, age);
           return;
      }
      int currPos = 0;
      SCLL::node *temp = *head;
-     while(true){
+     while (true)
+     {
           currPos++;
-          if(pos == currPos){
+          if (pos == currPos)
+          {
                temp->user->name = name;
-               temp->user->age= age;
+               temp->user->age = age;
                return;
           }
           temp = temp->next;
      }
-     cerr<<"Invalid Operation!";
+     cerr << "Invalid Operation!";
 }
-// void sort(SCLL::node **head);
-// void search(SCLL::node **head, string name); // Function Overloading
-// void search(SCLL::node **head, int age);     // Function Overloading
+void bubbleSortByAge(SCLL::node **head){
+     if(*head == nullptr){
+          cerr<<"Invalid Operation!";
+          return;
+     }
+     SCLL::node *temp;
+     SCLL::node *end= *head;
+     bool swap = true;
+     while(swap){
+          swap = false;
+          temp = *head;
+          while(temp->next != end){
+               if(temp->user->age > temp->next->user->age){
+                    temp->user->age ^= temp->next->user->age ^= temp->user->age ^= temp->next->user->age;
+                    string temp0 = temp->user->name;
+                    temp->user->name = temp->next->user->name;
+                    temp->next->user->name = temp0;
+                    swap = true;
+               }
+               temp = temp->next;
+          }
+          end = temp;
+     }
+}
+void bubbleSortByName(SCLL::node **head){
+     if(*head == nullptr){
+          cerr<<"Invalid Operation!";
+          return;
+     }
+     SCLL::node *temp;
+     SCLL::node *end= *head;
+     bool swap = true;
+     while(swap){
+          swap = false;
+          temp = *head;
+          while(temp->next != end){
+               if(temp->user->name > temp->next->user->name){
+                    temp->user->age ^= temp->next->user->age ^= temp->user->age ^= temp->next->user->age;
+                    string temp0 = temp->user->name;
+                    temp->user->name = temp->next->user->name;
+                    temp->next->user->name = temp0;
+                    swap = true;
+               }
+               temp = temp->next;
+          }
+          end = temp;
+     }
+}
+void search(SCLL::node **head, string name){  // Function Overloading
+     if(*head == nullptr){
+          cerr<<"Invalid Operation!";
+          return;
+     }
+     SCLL::node *temp = *head;
+     int pos;
+     while(temp->next != *head){
+          pos++;
+          if(name == temp->user->name){
+               cout<<"The Node : ("<<temp->user->name<<"-"<<temp->user->age<<")"<<endl;
+               cout<<"The Name is Found at Position : "<< pos;
+               return;
+          }
+          temp = temp->next;
+     }
+     cout<<"Name Data not Found!";
+}
+void search(SCLL::node **head, int age){    // Function Overloading
+     if(*head == nullptr){
+          cerr<<"Invalid Operation!";
+          return;
+     }
+     SCLL::node *temp = *head;
+     int pos;
+     while(temp->next != *head){
+          pos++;
+          if(age == temp->user->age){
+               cout<<"The Node : ("<<temp->user->name<<"-"<<temp->user->age<<")"<<endl;
+               cout<<"The Age is Found at Position : "<< pos;
+               return;
+          }
+          temp = temp->next;
+     }
+     cout<<"Age Data not Found!";
+}   
 void display(SCLL::node **head)
 {
      if (*head == nullptr)
@@ -279,7 +371,7 @@ int main()
                inputFile >> pos >> name >> age;
                insertPos(&head, name, age, pos);
                break;
-          case 12:
+          case 4:
                display(&head);
                break;
           default:
@@ -308,13 +400,17 @@ int main()
           cout << endl
                << "9.Update at Specific Position";
           cout << endl
-               << "10.Sort(Elemental)";
+               << "10.Sort(By Age)";
           cout << endl
-               << "11.Search(Linear)";
+               << "11.Sort(By Name)";
           cout << endl
-               << "12.Display";
+               << "12.Search(By Age)";
           cout << endl
-               << "13.Reverse Display";
+               << "13.Search(By Name)";
+          cout << endl
+               << "14.Display";
+          cout << endl
+               << "15.Reverse Display";
           cout << endl
                << "0.Exit";
           cout << endl
@@ -370,32 +466,50 @@ int main()
                display(&head);
                break;
           case 7:
-               cout<<"Enter the Name : ";
-               cin>>name;
-               cout<<"Enter the Age : ";
-               cin>>age;
-               updateFirst(&head,name,age);
+               cout << "Enter the Name : ";
+               cin >> name;
+               cout << "Enter the Age : ";
+               cin >> age;
+               updateFirst(&head, name, age);
                display(&head);
                break;
           case 8:
-               cout<<"Enter the Name : ";
-               cin>>name;
-               cout<<"Enter the Age : ";
-               cin>>age;
-               updateLast(&head,name,age);
+               cout << "Enter the Name : ";
+               cin >> name;
+               cout << "Enter the Age : ";
+               cin >> age;
+               updateLast(&head, name, age);
                display(&head);
                break;
           case 9:
-               cout<<"Enter the Position : ";
-               cin>>pos;
-               cout<<"Enter the Name : ";
+               cout << "Enter the Position : ";
+               cin >> pos;
+               cout << "Enter the Name : ";
                cin >> name;
-               cout<<"Enter the Age : ";
-               cin>>age;
-               updatePos(&head,name,age,pos);
+               cout << "Enter the Age : ";
+               cin >> age;
+               updatePos(&head, name, age, pos);
+               display(&head);
+               break;
+          case 10:
+               bubbleSortByAge(&head);
+               display(&head);
+               break;
+          case 11:
+               bubbleSortByName(&head);
                display(&head);
                break;
           case 12:
+               cout<<"Enter the Age : ";
+               cin>>age;
+               search(&head,age);
+               break;
+          case 13:
+               cout<<"Enter the Name : ";
+               cin>>name;
+               search(&head,name);
+               break;
+          case 14:
                display(&head);
                break;
           case 0:

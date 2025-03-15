@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include <fstream>
 
 using namespace std;
 
@@ -110,17 +111,17 @@ void deleteFirst(SCLL::node **head){
      }
      SCLL::node *temp = *head;
      if(temp->next == *head){
-          free(*head);
+          delete *head;
           *head = nullptr;
           nCount--;
           return;
      }
-     while(temp->next != *head){
+     SCLL::node *temp1 = *head;
+     *head = temp->next;
+     while(temp->next != temp1){
           temp = temp->next;
      }
-     SCLL::node *temp1 = *head;
-     temp->next = temp->next->next;
-     *head = temp->next->next;
+     temp->next = *head;
      delete temp1;
      temp1 = nullptr;
      nCount--;
@@ -132,7 +133,7 @@ void deleteLast(SCLL::node **head){
      }
      SCLL::node *temp = *head;
      if(temp->next == *head){
-          free(*head);
+          delete *head;
           *head = nullptr;
           nCount--;
           return;
@@ -146,7 +147,25 @@ void deleteLast(SCLL::node **head){
      temp1 = nullptr;
      nCount--;
 }
-// void deletePos(SCLL::node **head, int pos);
+void deletePos(SCLL::node **head, int pos){
+     if(*head == nullptr || pos < 1 || pos > nCount){
+          cout<<"Invalid Operation!";
+          return;
+     }
+     if(pos == 1){
+          deleteFirst(head);
+          return;
+     }
+     SCLL::node *temp = *head;
+     for(int i = 1; i < pos - 1;i++){
+          temp = temp->next;
+     }
+     SCLL::node * temp1 = temp->next;
+     temp->next = temp->next->next;
+     delete temp1;
+     temp1 = nullptr;
+     nCount--;
+}
 // void updateFirst(SCLL::node **head, string name, int age);
 // void updateLast(SCLL::node **head, string name, int age);
 // void updatePos(SCLL::node **head, string name, int age, int pos);
@@ -177,11 +196,35 @@ void display(SCLL::node **head)
 
 int main()
 {
+     ifstream inputFile("input.txt");//opening a input text file for automatic input ,saves time   
+     if(!inputFile.is_open()){
+          cerr<<"Unable to open the file!";
+          return 1;
+     }
      SCLL::node *head{nullptr};
      int choice, pos, age;
      string name;
      cout << endl
           << "Single Circular LL";
+     while(inputFile >> choice){              //Taking input from input.txt file
+          switch(choice){
+               case 1:
+                    inputFile >> name >> age;
+                    insertFirst(&head,name,age);
+                    break;
+               case 2:
+                    inputFile >> name >> age;
+                    insertLast(&head,name,age);
+                    break;
+               case 3:
+                    inputFile >> pos >> name >> age;
+                    insertPos(&head,name,age,pos);
+                    break;
+               default:
+               cerr << "Invalid Input From File!";
+               break;
+          }
+     }
      while (1)
      {
           cout << endl
@@ -256,6 +299,12 @@ int main()
                break;
           case 5:
                deleteLast(&head);
+               display(&head);
+               break;
+          case 6:
+               cout<<"Enter the Position : ";
+               cin>>pos;
+               deletePos(&head,pos);
                display(&head);
                break;
           case 12:

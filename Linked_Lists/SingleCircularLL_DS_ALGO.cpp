@@ -92,10 +92,6 @@ void insertPos(SCLL::node **head, string name, int age, int pos)
           insertFirst(head, name, age);
           return;
      }
-     // if(pos == nCount){
-     //      insertLast(head,name,age);
-     //      return;
-     // }
      SCLL::node *temp = *head;
      for(int i = 1; i < pos - 1; i++){
           temp = temp->next;
@@ -107,7 +103,27 @@ void insertPos(SCLL::node **head, string name, int age, int pos)
      temp->next = nn;
      nCount++;
 }
-// void deleteFirst(SCLL::node **head, string name, int age, int sly);
+void deleteFirst(SCLL::node **head){
+     if(*head == nullptr){
+          cout<<"Invalid Operation!";
+          return;
+     }
+     SCLL::node *temp = *head;
+     if(temp->next == *head){
+          free(*head);
+          *head = nullptr;
+          return;
+     }
+     while(temp->next != *head){
+          temp = temp->next;
+     }
+     SCLL::node *temp1 = *head;
+     temp->next = temp->next->next;
+     *head = temp->next->next;
+     free(temp1);
+     temp1 = nullptr;
+     nCount--;
+}
 // void deleteLast(SCLL::node **head, string name, int age, int sly);
 // void deletePos(SCLL::node **head, string name, int age, int sly, int pos);
 // void updateFirst(SCLL::node **head, string name, int age, int sly);
@@ -211,6 +227,10 @@ int main()
                     << "Enter the Age : ";
                     cin >> age;
                insertPos(&head,name,age,pos);
+               display(&head);
+               break;
+          case 4:
+               deleteFirst(&head);
                display(&head);
                break;
           case 12:

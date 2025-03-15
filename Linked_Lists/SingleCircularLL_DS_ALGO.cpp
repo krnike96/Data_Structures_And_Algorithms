@@ -112,6 +112,7 @@ void deleteFirst(SCLL::node **head){
      if(temp->next == *head){
           free(*head);
           *head = nullptr;
+          nCount--;
           return;
      }
      while(temp->next != *head){
@@ -120,15 +121,35 @@ void deleteFirst(SCLL::node **head){
      SCLL::node *temp1 = *head;
      temp->next = temp->next->next;
      *head = temp->next->next;
-     free(temp1);
+     delete temp1;
      temp1 = nullptr;
      nCount--;
 }
-// void deleteLast(SCLL::node **head, string name, int age, int sly);
-// void deletePos(SCLL::node **head, string name, int age, int sly, int pos);
-// void updateFirst(SCLL::node **head, string name, int age, int sly);
-// void updateLast(SCLL::node **head, string name, int age, int sly);
-// void updatePos(SCLL::node **head, string name, int age, int sly, int pos);
+void deleteLast(SCLL::node **head){
+     if(*head == nullptr){
+          cout<<"Invalid Operation!";
+          return;
+     }
+     SCLL::node *temp = *head;
+     if(temp->next == *head){
+          free(*head);
+          *head = nullptr;
+          nCount--;
+          return;
+     }
+     while(temp->next->next != *head){
+          temp = temp->next;
+     }
+     SCLL::node *temp1 = temp->next;
+     temp->next = *head;
+     delete temp1;
+     temp1 = nullptr;
+     nCount--;
+}
+// void deletePos(SCLL::node **head, int pos);
+// void updateFirst(SCLL::node **head, string name, int age);
+// void updateLast(SCLL::node **head, string name, int age);
+// void updatePos(SCLL::node **head, string name, int age, int pos);
 // void sort(SCLL::node **head);
 // void search(SCLL::node **head, string name); // Function Overloading
 // void search(SCLL::node **head, int age);     // Function Overloading
@@ -170,17 +191,17 @@ int main()
           cout << endl
                << "3.Insert at Specific Position";
           cout << endl
-               << "4.Insert at First";
+               << "4.Delete at First";
           cout << endl
-               << "5.Insert at Last";
+               << "5.Delete at Last";
           cout << endl
-               << "6.Insert at Specific Position";
+               << "6.Delete at Specific Position";
           cout << endl
-               << "7.Insert at First";
+               << "7.Update at First";
           cout << endl
-               << "8.Insert at Last";
+               << "8.Update at Last";
           cout << endl
-               << "9.Insert at Specific Position";
+               << "9.Update at Specific Position";
           cout << endl
                << "10.Sort(Elemental)";
           cout << endl
@@ -231,6 +252,10 @@ int main()
                break;
           case 4:
                deleteFirst(&head);
+               display(&head);
+               break;
+          case 5:
+               deleteLast(&head);
                display(&head);
                break;
           case 12:

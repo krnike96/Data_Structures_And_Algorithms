@@ -85,7 +85,7 @@ void insertPos(SCLL::node **head, string name, int age, int pos)
 {
      if (pos < 1 || pos > nCount + 1)
      {
-          cout << "Invalid Position!";
+          cerr << "Invalid Position!";
           return;
      }
      if (pos == 1)
@@ -94,7 +94,8 @@ void insertPos(SCLL::node **head, string name, int age, int pos)
           return;
      }
      SCLL::node *temp = *head;
-     for(int i = 1; i < pos - 1; i++){
+     for (int i = 1; i < pos - 1; i++)
+     {
           temp = temp->next;
      }
      SCLL::node *nn = SCLL::createNode();
@@ -104,13 +105,16 @@ void insertPos(SCLL::node **head, string name, int age, int pos)
      temp->next = nn;
      nCount++;
 }
-void deleteFirst(SCLL::node **head){
-     if(*head == nullptr){
-          cout<<"Invalid Operation!";
+void deleteFirst(SCLL::node **head)
+{
+     if (*head == nullptr)
+     {
+          cerr << "Invalid Operation!";
           return;
      }
      SCLL::node *temp = *head;
-     if(temp->next == *head){
+     if (temp->next == *head)
+     {
           delete *head;
           *head = nullptr;
           nCount--;
@@ -118,7 +122,8 @@ void deleteFirst(SCLL::node **head){
      }
      SCLL::node *temp1 = *head;
      *head = temp->next;
-     while(temp->next != temp1){
+     while (temp->next != temp1)
+     {
           temp = temp->next;
      }
      temp->next = *head;
@@ -126,19 +131,23 @@ void deleteFirst(SCLL::node **head){
      temp1 = nullptr;
      nCount--;
 }
-void deleteLast(SCLL::node **head){
-     if(*head == nullptr){
-          cout<<"Invalid Operation!";
+void deleteLast(SCLL::node **head)
+{
+     if (*head == nullptr)
+     {
+          cerr << "Invalid Operation!";
           return;
      }
      SCLL::node *temp = *head;
-     if(temp->next == *head){
+     if (temp->next == *head)
+     {
           delete *head;
           *head = nullptr;
           nCount--;
           return;
      }
-     while(temp->next->next != *head){
+     while (temp->next->next != *head)
+     {
           temp = temp->next;
      }
      SCLL::node *temp1 = temp->next;
@@ -147,28 +156,75 @@ void deleteLast(SCLL::node **head){
      temp1 = nullptr;
      nCount--;
 }
-void deletePos(SCLL::node **head, int pos){
-     if(*head == nullptr || pos < 1 || pos > nCount){
-          cout<<"Invalid Operation!";
+void deletePos(SCLL::node **head, int pos)
+{
+     if (*head == nullptr || pos < 1 || pos > nCount)
+     {
+          cerr << "Invalid Operation!";
           return;
      }
-     if(pos == 1){
+     if (pos == 1)
+     {
           deleteFirst(head);
           return;
      }
      SCLL::node *temp = *head;
-     for(int i = 1; i < pos - 1;i++){
+     for (int i = 1; i < pos - 1; i++)
+     {
           temp = temp->next;
      }
-     SCLL::node * temp1 = temp->next;
+     SCLL::node *temp1 = temp->next;
      temp->next = temp->next->next;
      delete temp1;
      temp1 = nullptr;
      nCount--;
 }
-// void updateFirst(SCLL::node **head, string name, int age);
-// void updateLast(SCLL::node **head, string name, int age);
-// void updatePos(SCLL::node **head, string name, int age, int pos);
+void updateFirst(SCLL::node **head, string name, int age){
+     if(*head == nullptr){
+          cerr << "Invalid Operation!";
+          return;
+     }
+     (*head)->user->name = name;
+     (*head)->user->age = age;
+}
+void updateLast(SCLL::node **head, string name, int age){
+     if(*head == nullptr){
+          cerr<<"Invalid Operation!";
+          return;
+     }
+     SCLL::node *temp = *head;
+     while(temp->next != *head){
+          temp = temp->next;
+     }
+     temp->user->name = name;
+     temp->user->age = age;
+}
+void updatePos(SCLL::node **head, string name, int age, int pos){
+     if(*head == nullptr){
+          cerr<<"Invalid Operation!";
+          return;
+     }
+     if(pos < 1 || pos > nCount){
+          cerr<<"Invalid Operation!";
+          return;
+     }
+     if(pos == 1){
+          updateFirst(head,name,age);
+          return;
+     }
+     int currPos = 0;
+     SCLL::node *temp = *head;
+     while(true){
+          currPos++;
+          if(pos == currPos){
+               temp->user->name = name;
+               temp->user->age= age;
+               return;
+          }
+          temp = temp->next;
+     }
+     cerr<<"Invalid Operation!";
+}
 // void sort(SCLL::node **head);
 // void search(SCLL::node **head, string name); // Function Overloading
 // void search(SCLL::node **head, int age);     // Function Overloading
@@ -196,9 +252,10 @@ void display(SCLL::node **head)
 
 int main()
 {
-     ifstream inputFile("input.txt");//opening a input text file for automatic input ,saves time   
-     if(!inputFile.is_open()){
-          cerr<<"Unable to open the file!";
+     ifstream inputFile("input.txt"); // opening a input text file for automatic input ,saves time
+     if (!inputFile.is_open())
+     {
+          cerr << "Unable to open the file!";
           return 1;
      }
      SCLL::node *head{nullptr};
@@ -206,21 +263,26 @@ int main()
      string name;
      cout << endl
           << "Single Circular LL";
-     while(inputFile >> choice){              //Taking input from input.txt file
-          switch(choice){
-               case 1:
-                    inputFile >> name >> age;
-                    insertFirst(&head,name,age);
-                    break;
-               case 2:
-                    inputFile >> name >> age;
-                    insertLast(&head,name,age);
-                    break;
-               case 3:
-                    inputFile >> pos >> name >> age;
-                    insertPos(&head,name,age,pos);
-                    break;
-               default:
+     while (inputFile >> choice)
+     { // Taking input from input.txt file
+          switch (choice)
+          {
+          case 1:
+               inputFile >> name >> age;
+               insertFirst(&head, name, age);
+               break;
+          case 2:
+               inputFile >> name >> age;
+               insertLast(&head, name, age);
+               break;
+          case 3:
+               inputFile >> pos >> name >> age;
+               insertPos(&head, name, age, pos);
+               break;
+          case 12:
+               display(&head);
+               break;
+          default:
                cerr << "Invalid Input From File!";
                break;
           }
@@ -283,14 +345,14 @@ int main()
           case 3:
                cout << endl
                     << "Enter the Position : ";
-                    cin >> pos;
+               cin >> pos;
                cout << endl
-                    <<"Enter the Name : ";
-                    cin >> name;
+                    << "Enter the Name : ";
+               cin >> name;
                cout << endl
                     << "Enter the Age : ";
-                    cin >> age;
-               insertPos(&head,name,age,pos);
+               cin >> age;
+               insertPos(&head, name, age, pos);
                display(&head);
                break;
           case 4:
@@ -302,9 +364,35 @@ int main()
                display(&head);
                break;
           case 6:
+               cout << "Enter the Position : ";
+               cin >> pos;
+               deletePos(&head, pos);
+               display(&head);
+               break;
+          case 7:
+               cout<<"Enter the Name : ";
+               cin>>name;
+               cout<<"Enter the Age : ";
+               cin>>age;
+               updateFirst(&head,name,age);
+               display(&head);
+               break;
+          case 8:
+               cout<<"Enter the Name : ";
+               cin>>name;
+               cout<<"Enter the Age : ";
+               cin>>age;
+               updateLast(&head,name,age);
+               display(&head);
+               break;
+          case 9:
                cout<<"Enter the Position : ";
                cin>>pos;
-               deletePos(&head,pos);
+               cout<<"Enter the Name : ";
+               cin >> name;
+               cout<<"Enter the Age : ";
+               cin>>age;
+               updatePos(&head,name,age,pos);
                display(&head);
                break;
           case 12:
@@ -314,7 +402,7 @@ int main()
                cout << "Exiting...";
                return 0;
           default:
-               cout << endl
+               cerr << endl
                     << "Error - 400 : Bad Behaviour";
                break;
           }

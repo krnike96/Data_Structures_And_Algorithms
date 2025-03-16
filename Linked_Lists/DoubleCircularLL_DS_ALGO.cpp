@@ -324,7 +324,7 @@ void display(DCLL::node **head, DCLL::node **tail)
      cout << "Tail" << endl;
      cout << "Nodes : " << nCount;
 }
-void displayReverse(DCLL::node **head, DCLL::node **tail)
+void displayReverse(DCLL::node **head, DCLL::node **tail) //display in reverse
 {
      if (*head == nullptr)
      {

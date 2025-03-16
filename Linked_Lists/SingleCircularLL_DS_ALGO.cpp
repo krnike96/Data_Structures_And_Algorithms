@@ -232,6 +232,7 @@ void updatePos(SCLL::node **head, string name, int age, int pos)
                temp->user->age = age;
                return;
           }
+          if(temp == *head) break; 
           temp = temp->next;
      }
      cerr << "Invalid Operation!";

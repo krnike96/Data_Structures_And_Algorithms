@@ -113,7 +113,8 @@ void deleteFirst(DCLL::node **head, DCLL::node **tail)
      {
           return;
      }
-     if((*head)->next == *tail){
+     if ((*head)->next == *tail)
+     {
           delete *head;
           *head = nullptr;
           nCount--;
@@ -125,11 +126,14 @@ void deleteFirst(DCLL::node **head, DCLL::node **tail)
      *head = (*tail)->next;
      nCount--;
 }
-void deleteLast(DCLL::node **head,DCLL::node **tail){
-     if(*head == nullptr){
+void deleteLast(DCLL::node **head, DCLL::node **tail)
+{
+     if (*head == nullptr)
+     {
           return;
      }
-     if((*head)->next == *head){
+     if ((*head)->next == *head)
+     {
           delete *head;
           *head = nullptr;
           nCount--;
@@ -143,21 +147,26 @@ void deleteLast(DCLL::node **head,DCLL::node **tail){
      temp = nullptr;
      nCount--;
 }
-void deletePos(DCLL::node **head,DCLL::node **tail, int pos){
-     if(pos < 1 || pos > nCount){
-          cout<<"Invalid Position!";
+void deletePos(DCLL::node **head, DCLL::node **tail, int pos)
+{
+     if (pos < 1 || pos > nCount)
+     {
+          cout << "Invalid Position!";
           return;
      }
-     if(pos == 1){
-          deleteFirst(head,tail);
+     if (pos == 1)
+     {
+          deleteFirst(head, tail);
           return;
      }
-     if(pos == nCount){
-          deleteLast(head,tail);
+     if (pos == nCount)
+     {
+          deleteLast(head, tail);
           return;
      }
      DCLL::node *temp = *head;
-     for(int i = 1; i < pos - 1; i++){
+     for (int i = 1; i < pos - 1; i++)
+     {
           temp = temp->next;
      }
      DCLL::node *temp1 = temp->next->next;
@@ -166,40 +175,51 @@ void deletePos(DCLL::node **head,DCLL::node **tail, int pos){
      temp1->prev = temp;
      nCount--;
 }
-void update(DCLL::node **head,DCLL::node **tail, string name, int age, int pos){
-     if(*head == nullptr){
+void update(DCLL::node **head, DCLL::node **tail, string name, int age, int pos)
+{
+     if (*head == nullptr)
+     {
           return;
      }
-     if(pos < 1 || pos > nCount){
-          cout<<"Invalid Operation! ";
+     if (pos < 1 || pos > nCount)
+     {
+          cout << "Invalid Operation! ";
           return;
      }
      int currPos = 0;
      DCLL::node *temp = *head;
-     while(true){
+     while (true)
+     {
           currPos++;
-          if(pos == currPos){
+          if (pos == currPos)
+          {
                temp->user->name = name;
                temp->user->age = age;
                return;
           }
-          if(temp == *tail) break;
+          if (temp == *tail)
+               break;
           temp = temp->next;
      }
-     cout<<"Invalid Operation! ";
+     cout << "Invalid Operation! ";
 }
-void sortAge(DCLL::node **head,DCLL::node **tail){
-     if(*head == nullptr){
+void sortAge(DCLL::node **head, DCLL::node **tail)
+{
+     if (*head == nullptr)
+     {
           return;
      }
      DCLL::node *temp = nullptr;
      DCLL::node *end = *tail;
      bool swap = true;
-     while(swap){
+     while (swap)
+     {
           swap = false;
           temp = *head;
-          while(temp != end){
-               if(temp->user->age > temp->next->user->age){
+          while (temp != end)
+          {
+               if (temp->user->age > temp->next->user->age)
+               {
                     temp->user->age ^= temp->next->user->age ^= temp->user->age ^= temp->next->user->age;
                     string temp0 = temp->user->name;
                     temp->user->name = temp->next->user->name;
@@ -211,18 +231,23 @@ void sortAge(DCLL::node **head,DCLL::node **tail){
           end = temp;
      }
 }
-void sortName(DCLL::node **head,DCLL::node **tail){
-     if(*head == nullptr){
+void sortName(DCLL::node **head, DCLL::node **tail)
+{
+     if (*head == nullptr)
+     {
           return;
      }
      DCLL::node *temp = nullptr;
      DCLL::node *end = *tail;
      bool swap = true;
-     while(swap){
+     while (swap)
+     {
           swap = false;
           temp = *head;
-          while(temp != end){
-               if(temp->user->name > temp->next->user->name){
+          while (temp != end)
+          {
+               if (temp->user->name > temp->next->user->name)
+               {
                     temp->user->age ^= temp->next->user->age ^= temp->user->age ^= temp->next->user->age;
                     string temp0 = temp->user->name;
                     temp->user->name = temp->next->user->name;
@@ -234,43 +259,51 @@ void sortName(DCLL::node **head,DCLL::node **tail){
           end = temp;
      }
 }
-void search(DCLL::node **head,DCLL::node **tail, string name) // Function Overloading
+void search(DCLL::node **head, DCLL::node **tail, string name) // Function Overloading
 {
-     if(*head == nullptr){
+     if (*head == nullptr)
+     {
           return;
      }
      DCLL::node *temp = *head;
      int currPos = 0;
-     while(true){
+     while (true)
+     {
           currPos++;
-          if(temp->user->name == name){
-               cout<<"The Node : ("<<temp->user->name<<"-"<<temp->user->age<<")"<<endl;
-               cout<<"The Name is found at Position : "<<currPos;
+          if (temp->user->name == name)
+          {
+               cout << "The Node : (" << temp->user->name << "-" << temp->user->age << ")" << endl;
+               cout << "The Name is found at Position : " << currPos;
                return;
           }
-          if(temp == *tail) break;
+          if (temp == *tail)
+               break;
           temp = temp->next;
      }
-     cout<<"Not Found!";
+     cout << "Not Found!";
 }
-void search(DCLL::node **head,DCLL::node **tail, int age)     // Function Overloading
+void search(DCLL::node **head, DCLL::node **tail, int age) // Function Overloading
 {
-     if(*head == nullptr){
+     if (*head == nullptr)
+     {
           return;
      }
      DCLL::node *temp = *head;
      int currPos = 0;
-     while(true){
+     while (true)
+     {
           currPos++;
-          if(temp->user->age == age){
-               cout<<"The Node : ("<<temp->user->name<<"-"<<temp->user->age<<")"<<endl;
-               cout<<"The Name is found at Position : "<<currPos;
+          if (temp->user->age == age)
+          {
+               cout << "The Node : (" << temp->user->name << "-" << temp->user->age << ")" << endl;
+               cout << "The Name is found at Position : " << currPos;
                return;
           }
-          if(temp == *tail) break;
+          if (temp == *tail)
+               break;
           temp = temp->next;
      }
-     cout<<"Not Found!";
+     cout << "Not Found!";
 }
 void display(DCLL::node **head, DCLL::node **tail)
 {
@@ -291,13 +324,32 @@ void display(DCLL::node **head, DCLL::node **tail)
      cout << "Tail" << endl;
      cout << "Nodes : " << nCount;
 }
-// void displayReverse(DCLL::node **head);
+void displayReverse(DCLL::node **head, DCLL::node **tail)
+{
+     if (*head == nullptr)
+     {
+          cerr << "The List is empty!";
+          return;
+     }
+     DCLL::node *temp = *tail;
+     cout << "Tail->";
+     while (true)
+     {
+          cout << "(" << temp->user->name << "-" << temp->user->age << ")->";
+          temp = temp->prev;
+          if (temp == *head)
+               break;
+     }
+     cout << "Head" << endl;
+     cout << "Nodes : " << nCount;
+}
 
 int main()
 {
      ifstream inputFile("DCLL_input.txt");
-     if(!inputFile.is_open()){
-          cerr<<"Unable to open the input file!";
+     if (!inputFile.is_open())
+     {
+          cerr << "Unable to open the input file!";
           return 1;
      }
      DCLL::node *head{nullptr};
@@ -305,27 +357,29 @@ int main()
      int choice, pos, age;
      string name;
      cout << endl
-          << "Single Circular LL"<<endl;
-     while(inputFile >> choice){
-          switch(choice){
-               case 1:
-                    inputFile >> name >> age;
-                    insertFirst(&head,&tail,name,age);
-                    break;
-               case 2:
-                    inputFile >> name >>age;
-                    insertLast(&head,&tail,name,age);
-                    break;
-               case 3:
-                    inputFile >>pos>> name >> age;
-                    insertPos(&head,&tail,name,age,pos);
-                    break;
-               case 4:
-                    display(&head,&tail);
-                    break;
-               default:
-                    cerr<<"Error taking input from file!";
-                    break;
+          << "Single Circular LL" << endl;
+     while (inputFile >> choice)
+     {
+          switch (choice)
+          {
+          case 1:
+               inputFile >> name >> age;
+               insertFirst(&head, &tail, name, age);
+               break;
+          case 2:
+               inputFile >> name >> age;
+               insertLast(&head, &tail, name, age);
+               break;
+          case 3:
+               inputFile >> pos >> name >> age;
+               insertPos(&head, &tail, name, age, pos);
+               break;
+          case 4:
+               display(&head, &tail);
+               break;
+          default:
+               cerr << "Error taking input from file!";
+               break;
           }
      }
      while (true)
@@ -354,6 +408,8 @@ int main()
                << "11.Search(By Age)";
           cout << endl
                << "12.Display";
+          cout << endl
+               << "13.Display(Reverse)";
           cout << endl
                << "0.Exit";
           cout << endl
@@ -398,45 +454,48 @@ int main()
                display(&head, &tail);
                break;
           case 5:
-               deleteLast(&head,&tail);
-               display(&head,&tail);
+               deleteLast(&head, &tail);
+               display(&head, &tail);
                break;
           case 6:
-               cout<<"Enter the Position : ";
-               cin>>pos;
-               deletePos(&head,&tail,pos);
-               display(&head,&tail);
+               cout << "Enter the Position : ";
+               cin >> pos;
+               deletePos(&head, &tail, pos);
+               display(&head, &tail);
                break;
           case 7:
-               cout<<"Enter the Position : ";
-               cin>>pos;
-               cout<<"Enter the name : ";
-               cin>>name;
-               cout<<"Enter the age : ";
-               cin>> age;
-               update(&head,&tail,name,age,pos);
-               display(&head,&tail);
+               cout << "Enter the Position : ";
+               cin >> pos;
+               cout << "Enter the name : ";
+               cin >> name;
+               cout << "Enter the age : ";
+               cin >> age;
+               update(&head, &tail, name, age, pos);
+               display(&head, &tail);
                break;
           case 8:
-               sortName(&head,&tail);
-               display(&head,&tail);
+               sortName(&head, &tail);
+               display(&head, &tail);
                break;
           case 9:
-               sortAge(&head,&tail);
-               display(&head,&tail);
+               sortAge(&head, &tail);
+               display(&head, &tail);
                break;
           case 10:
-               cout<<"Enter the Name : ";
-               cin>>name;
-               search(&head,&tail,name);
+               cout << "Enter the Name : ";
+               cin >> name;
+               search(&head, &tail, name);
                break;
           case 11:
-               cout<<"Enter the Name : ";
-               cin>>age;
-               search(&head,&tail,age);
+               cout << "Enter the Name : ";
+               cin >> age;
+               search(&head, &tail, age);
                break;
           case 12:
-               display(&head,&tail);
+               display(&head, &tail);
+               break;
+          case 13:
+               displayReverse(&head, &tail);
                break;
           case 0:
                cout << endl

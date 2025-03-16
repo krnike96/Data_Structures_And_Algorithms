@@ -166,7 +166,28 @@ void deletePos(DCLL::node **head,DCLL::node **tail, int pos){
      temp1->prev = temp;
      nCount--;
 }
-// void update(DCLL::node **head, string name, int age, int pos);
+void update(DCLL::node **head,DCLL::node **tail, string name, int age, int pos){
+     if(*head == nullptr){
+          return;
+     }
+     if(pos < 1 || pos > nCount){
+          cout<<"Invalid Operation! ";
+          return;
+     }
+     int currPos = 0;
+     DCLL::node *temp = *head;
+     while(true){
+          currPos++;
+          if(pos == currPos){
+               temp->user->name = name;
+               temp->user->age = age;
+               return;
+          }
+          if(temp == *tail) break;
+          temp = temp->next;
+     }
+     cout<<"Invalid Operation! ";
+}
 // void sort(DCLL::node **head);
 // void search(DCLL::node **head, string name); // Function Overloading
 // void search(DCLL::node **head, int age);     // Function Overloading
@@ -301,12 +322,26 @@ int main()
                deletePos(&head,&tail,pos);
                display(&head,&tail);
                break;
+          case 7:
+               cout<<"Enter the Position : ";
+               cin>>pos;
+               cout<<"Enter the name : ";
+               cin>>name;
+               cout<<"Enter the age : ";
+               cin>> age;
+               update(&head,&tail,name,age,pos);
+               display(&head,&tail);
+               break;
           case 10:
                display(&head,&tail);
                break;
           case 0:
                cout << endl
                     << "Exiting...";
+               delete head;
+               delete tail;
+               head = nullptr;
+               tail = nullptr;
                return 0;
           default:
                cout << endl

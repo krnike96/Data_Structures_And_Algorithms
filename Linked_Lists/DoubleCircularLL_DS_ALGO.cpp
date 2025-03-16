@@ -188,9 +188,90 @@ void update(DCLL::node **head,DCLL::node **tail, string name, int age, int pos){
      }
      cout<<"Invalid Operation! ";
 }
-// void sort(DCLL::node **head);
-// void search(DCLL::node **head, string name); // Function Overloading
-// void search(DCLL::node **head, int age);     // Function Overloading
+void sortAge(DCLL::node **head,DCLL::node **tail){
+     if(*head == nullptr){
+          return;
+     }
+     DCLL::node *temp = nullptr;
+     DCLL::node *end = *tail;
+     bool swap = true;
+     while(swap){
+          swap = false;
+          temp = *head;
+          while(temp != end){
+               if(temp->user->age > temp->next->user->age){
+                    temp->user->age ^= temp->next->user->age ^= temp->user->age ^= temp->next->user->age;
+                    string temp0 = temp->user->name;
+                    temp->user->name = temp->next->user->name;
+                    temp->next->user->name = temp0;
+                    swap = true;
+               }
+               temp = temp->next;
+          }
+          end = temp;
+     }
+}
+void sortName(DCLL::node **head,DCLL::node **tail){
+     if(*head == nullptr){
+          return;
+     }
+     DCLL::node *temp = nullptr;
+     DCLL::node *end = *tail;
+     bool swap = true;
+     while(swap){
+          swap = false;
+          temp = *head;
+          while(temp != end){
+               if(temp->user->name > temp->next->user->name){
+                    temp->user->age ^= temp->next->user->age ^= temp->user->age ^= temp->next->user->age;
+                    string temp0 = temp->user->name;
+                    temp->user->name = temp->next->user->name;
+                    temp->next->user->name = temp0;
+                    swap = true;
+               }
+               temp = temp->next;
+          }
+          end = temp;
+     }
+}
+void search(DCLL::node **head,DCLL::node **tail, string name) // Function Overloading
+{
+     if(*head == nullptr){
+          return;
+     }
+     DCLL::node *temp = *head;
+     int currPos = 0;
+     while(true){
+          currPos++;
+          if(temp->user->name == name){
+               cout<<"The Node : ("<<temp->user->name<<"-"<<temp->user->age<<")"<<endl;
+               cout<<"The Name is found at Position : "<<currPos;
+               return;
+          }
+          if(temp == *tail) break;
+          temp = temp->next;
+     }
+     cout<<"Not Found!";
+}
+void search(DCLL::node **head,DCLL::node **tail, int age)     // Function Overloading
+{
+     if(*head == nullptr){
+          return;
+     }
+     DCLL::node *temp = *head;
+     int currPos = 0;
+     while(true){
+          currPos++;
+          if(temp->user->age == age){
+               cout<<"The Node : ("<<temp->user->name<<"-"<<temp->user->age<<")"<<endl;
+               cout<<"The Name is found at Position : "<<currPos;
+               return;
+          }
+          if(temp == *tail) break;
+          temp = temp->next;
+     }
+     cout<<"Not Found!";
+}
 void display(DCLL::node **head, DCLL::node **tail)
 {
      if (*head == nullptr)
@@ -264,11 +345,15 @@ int main()
           cout << endl
                << "7.Update at Specific Position";
           cout << endl
-               << "8.Sort(Elemental)";
+               << "8.Sort(By Name)";
           cout << endl
-               << "9.Search(Linear)";
+               << "9.Sort(By Age)";
           cout << endl
-               << "10.Display";
+               << "10.Search(By Name)";
+          cout << endl
+               << "11.Search(By Age)";
+          cout << endl
+               << "12.Display";
           cout << endl
                << "0.Exit";
           cout << endl
@@ -332,7 +417,25 @@ int main()
                update(&head,&tail,name,age,pos);
                display(&head,&tail);
                break;
+          case 8:
+               sortName(&head,&tail);
+               display(&head,&tail);
+               break;
+          case 9:
+               sortAge(&head,&tail);
+               display(&head,&tail);
+               break;
           case 10:
+               cout<<"Enter the Name : ";
+               cin>>name;
+               search(&head,&tail,name);
+               break;
+          case 11:
+               cout<<"Enter the Name : ";
+               cin>>age;
+               search(&head,&tail,age);
+               break;
+          case 12:
                display(&head,&tail);
                break;
           case 0:

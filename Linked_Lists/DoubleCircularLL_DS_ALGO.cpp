@@ -54,7 +54,20 @@ void insertFirst(DCLL::node **head,DCLL::node **tail, string name, int age){
      }
      nCount++;
 }
-// void insertLast(DCLL::node **head, string name, int age);
+void insertLast(DCLL::node **head,DCLL::node **tail, string name, int age){
+     if(*head == nullptr || *tail == nullptr){
+          insertFirst(head,tail,name,age);
+          return;
+     }
+     DCLL::node *nn = DCLL::createNode();
+     nn->user->name = name;
+     nn->user->age = age;
+     nn->prev = *tail;
+     (*tail)->next = nn;
+     *tail = nn;
+     nn->next = *head;
+     nCount++;
+}
 // void insertPos(DCLL::node **head, string name, int age, int pos);
 // void deleteFirst(DCLL::node **head, string name, int age);
 // void deleteLast(DCLL::node **head, string name, int age);
@@ -66,20 +79,20 @@ void insertFirst(DCLL::node **head,DCLL::node **tail, string name, int age){
 // void search(DCLL::node **head, string name); // Function Overloading
 // void search(DCLL::node **head, int age);     // Function Overloading
 // void search(DCLL::node **head);     // Function OVerloading
-void display(DCLL::node **head){
+void display(DCLL::node **head,DCLL::node **tail){
      if(*head == nullptr){
           cerr<<"The list is empty!";
           return;
      }
      DCLL::node *temp = *head;
      cout<<"Head->";
-     while(1){
+     while(true){
           cout<<"("<<temp->user->name<<"-"<<temp->user->age<<")->";
           temp = temp->next;
           if(temp == *head) break;
      }
-     cout<<"Head"<<endl;
-     cout<<"Nodes : "<<nCount<<endl;
+     cout<<"Tail"<<endl;
+     cout<<"Nodes : "<<nCount;
 }
 // void displayReverse(DCLL::node **head);
 
@@ -132,7 +145,17 @@ int main()
                     << "Enter the User's Age : ";
                cin >> age;
                insertFirst(&head, &tail, name, age);
-               display(&head);
+               display(&head,&tail);
+               break;
+          case 2:
+               cout << endl
+                    << "Enter the User's Name : ";
+               cin>>name;
+               cout << endl
+                    << "Enter the User's Age : ";
+               cin >> age;
+               insertLast(&head, &tail, name, age);
+               display(&head,&tail);
                break;
           case 0:
                cout<<endl<<"Exiting...";

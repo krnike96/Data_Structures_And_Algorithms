@@ -1,3 +1,4 @@
+//Head & Tail Approach
 #include <iostream>
 #include <string>
 
@@ -68,7 +69,32 @@ void insertLast(DCLL::node **head,DCLL::node **tail, string name, int age){
      nn->next = *head;
      nCount++;
 }
-// void insertPos(DCLL::node **head, string name, int age, int pos);
+void insertPos(DCLL::node **head,DCLL::node **tail, string name, int age, int pos){
+     if(pos == 1){
+          insertFirst(head,tail,name,age);
+          return;
+     }
+     if(pos < 1 || pos > nCount + 1){
+          cout<<"Invalid Position!";
+          return;
+     }
+     if(pos == nCount + 1){
+          insertLast(head,tail,name,age);
+          return;
+     }
+     DCLL::node *temp = *head;
+     for(int i = 1; i < pos - 1; i++){
+          temp = temp->next;
+     }
+     DCLL::node *nn = DCLL::createNode();
+     nn->user->name = name;
+     nn->user->age = age;
+     nn->next = temp->next;
+     nn->prev = temp;
+     temp->next->prev = nn;
+     temp->next = nn;
+     nCount++;
+}
 // void deleteFirst(DCLL::node **head, string name, int age);
 // void deleteLast(DCLL::node **head, string name, int age);
 // void deletePos(DCLL::node **head, string name, int age, int pos);
@@ -155,6 +181,18 @@ int main()
                     << "Enter the User's Age : ";
                cin >> age;
                insertLast(&head, &tail, name, age);
+               display(&head,&tail);
+               break;
+          case 3:
+          cout<<"Enter the Position : ";
+          cin >> pos;
+               cout << endl
+               << "Enter the User's Name : ";
+               cin>>name;
+               cout << endl
+                    << "Enter the User's Age : ";
+               cin >> age;
+               insertPos(&head, &tail, name, age,pos);
                display(&head,&tail);
                break;
           case 0:

@@ -48,4 +48,4 @@ Contributions are welcome and greatly appreciated! If you'd like to contribute t
 
 2. **Clone the Repository:**
    ```bash
-   git clone https://github.com/your-username/data-structures.git
+   git clone https://github.com/krnike96/Data_Structures.git

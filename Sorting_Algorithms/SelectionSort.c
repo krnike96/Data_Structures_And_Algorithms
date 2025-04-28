@@ -1,6 +1,6 @@
 #include "stdio.h"
 #include "stdlib.h"
-void selectionSort(int *arr, int n)
+void selectionSort(int *arr, size_t n)
 {
     for (int i = 0; i < n - 1; i++)
     {
@@ -12,11 +12,13 @@ void selectionSort(int *arr, int n)
                 min = j;
             }
         }
+        if(min == i) continue;
         int temp = arr[min];
         arr[min] = arr[i];
         arr[i] = temp;
     }
-    printf("Sorted Array : ");
+}
+void printArray(int * arr, size_t n){
     for (int i = 0; i < n; i++)
     {
         printf("%d ", *(arr + i));
@@ -24,18 +26,21 @@ void selectionSort(int *arr, int n)
 }
 int main()
 {
-    int n;
+    size_t n;
     printf("Enter the size of Array : ");
-    scanf("%d", &n);
+    scanf("%zu", &n);
+    if(n <= 0) return 1;
     int *arr = (int *)malloc(sizeof(int) * n);
     if (!arr)
-        return 0;
+        return 1;
     printf("Enter the Array elements : ");
     for (int i = 0; i < n; i++)
     {
         scanf("%d", (arr + i));
     }
     selectionSort(arr, n);
+    printf("Sorted Array : ");
+    printArray(arr,n);
     free(arr);
     return 0;
 }

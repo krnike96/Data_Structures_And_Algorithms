@@ -41,8 +41,31 @@ bool isEmpty(priorityQueue *pq){
         return false;
     }
 }
-void heapifyUp(priorityQueue *pq, int index);
-void heapifyDown(priorityQueue *pq, int index);
+void swap(int * n, int * m){
+    int temp = *n;
+    *n = *m;
+    *m = temp;
+}
+void heapifyUp(priorityQueue *pq, int index){
+    while(index > 0 && pq->heap[parent(index)] < pq->heap[index]){  //for maxHeap : Parent > Child
+    //while(index > 0 && pq->heap[parent(index)] > pq->heap[index]){  //for minHeap : Parent < Child
+        swap(&pq->heap[parent(index)],&pq->heap[index]);
+        index = parent(index);
+    }
+}
+void heapifyDown(priorityQueue *pq, int index){
+    int maxIndex = index; 
+    if(leftChildIndex < pq->size && pq->heap[left(index)] > pq->heap[maxIndex]){
+        maxIndex = left(index);
+    }
+    if(rightChildIndex < pq->size && pq->heap[right(index)] > pq->heap[maxIndex]){
+        maxIndex = right(index);
+    }
+    if(index != maxIndex){
+        swap(&pq->heap[index], &pq->heap[maxIndex]);
+        heapifyDown(pq,maxIndex);
+    }
+}
 void enQueue(priorityQueue *pq, int &data);
 void deQueue(priorityQueue *pq);
 int peekTop(priorityQueue *pq);

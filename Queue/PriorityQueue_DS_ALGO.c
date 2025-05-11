@@ -27,8 +27,20 @@ int left(int index){
 int right(int index){
     return 2 * index + 2;
 }
-bool isFull(priorityQueue *pq);
-bool isEmpty(priorityQueue *pq);
+bool isFull(priorityQueue *pq){
+    if(pq->size == pq->capacity - 1){
+        return true;
+    }else{
+        return false;
+    }
+}
+bool isEmpty(priorityQueue *pq){
+    if(pq->size == 0){
+        return true;
+    }else{
+        return false;
+    }
+}
 void heapifyUp(priorityQueue *pq, int index);
 void heapifyDown(priorityQueue *pq, int index);
 void enQueue(priorityQueue *pq, int &data);

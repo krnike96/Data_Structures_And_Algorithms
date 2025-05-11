@@ -25,6 +25,15 @@ Here are the data structures I've implemented so far:
   - Singly Linked List
   - Doubly Linked List
   - Circular Linked Lists
+- **Queue**
+  - Normal Queue using Array
+  - Circular Queue using Array
+- **Stack**
+  - Stack using Array
+- **Sorting Algorithms**
+  - Selection Sort
+  - Bubble Sort
+  - Insertion Sort
 
 *(I'll continue to add more data structures as I learn!)*
 

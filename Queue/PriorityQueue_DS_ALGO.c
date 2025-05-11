@@ -18,9 +18,15 @@ priorityQueue *initializer(int& capacity){
     pq->size = 0;
     return pq;
 }
-int parent(int index);
-int left(int index);
-int right(int index);
+int parent(int index){
+    return (index - 1)/2; //Valid for both 0 & 1 based indexing
+}
+int left(int index){
+    return 2 * index + 1;
+}
+int right(int index){
+    return 2 * index + 2;
+}
 bool isFull(priorityQueue *pq);
 bool isEmpty(priorityQueue *pq);
 void heapifyUp(priorityQueue *pq, int index);

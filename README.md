@@ -28,6 +28,7 @@ Here are the data structures I've implemented so far:
 - **Queue**
   - Normal Queue using Array
   - Circular Queue using Array
+  - Priority Queue (Max-Heap Based)
 - **Stack**
   - Stack using Array
 - **Sorting Algorithms**

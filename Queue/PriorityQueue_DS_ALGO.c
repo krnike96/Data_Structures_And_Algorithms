@@ -56,10 +56,10 @@ void heapifyUp(priorityQueue *pq, int index){
 void heapifyDown(priorityQueue *pq, int index){
     int maxIndex = index; 
     if(leftChildIndex < pq->size && pq->heap[left(index)] > pq->heap[maxIndex]){
-        maxIndex = left(index);
+        maxIndex = left(index);                         //< for minHeap
     }
     if(rightChildIndex < pq->size && pq->heap[right(index)] > pq->heap[maxIndex]){
-        maxIndex = right(index);
+        maxIndex = right(index);                          //< for minHeap
     }
     if(index != maxIndex){
         swap(&pq->heap[index], &pq->heap[maxIndex]);

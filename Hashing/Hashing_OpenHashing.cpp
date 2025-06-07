@@ -36,7 +36,7 @@ public:
         count++;
     }
 
-    void remove(int key);
+    void remove(int key)
     {
         int i = hashedIndex(key);
         auto it = find_if(hashTable[i].begin(), hashTable[i].end(), [key](const pair<int, string> &p)
@@ -45,7 +45,10 @@ public:
         {
             hashTable[i].erase(it);
             count--;
+            cout << "Key : " << key << " Removed!" << endl;
+            return;
         }
+        cout << "Key wasn't Found!" << endl;
     }
     string search(int key)
     {
@@ -57,23 +60,37 @@ public:
                 return keyVal.second;
             }
         }
-        return "Key is not Found!";
+        return "Key wasn't Found!";
     }
-    void display(){
-        for(int i = 0; i < tableSize; i++){
-            cout<<"List - "<< i <<" : ";
-            if(hashTable[i].empty()){
-                cout<<"Empty";
-            } else{
-                for(auto& keyVal:hashTable[i]){
-                    cout<<"["<<keyVal.first<<"-"<<keyVal.second<<"]";
+    void display()
+    {
+        for (int i = 0; i < tableSize; i++)
+        {
+            cout << "List - " << i << " : ";
+            if (hashTable[i].empty())
+            {
+                cout << "Empty";
+            }
+            else
+            {
+                for (auto &keyVal : hashTable[i])
+                {
+                    cout << "[" << keyVal.first << "-" << keyVal.second << "]";
                 }
             }
-            cout<<endl;
+            cout << endl;
         }
     }
-    int getEntries();
-    double getLoadFactor();
+
+    int getEntries()
+    {
+        return count;
+    }
+
+    double getLoadFactor()
+    {
+        return static_cast<double>(count) / tableSize;
+    }
 };
 
 int main()
@@ -121,10 +138,10 @@ int main()
             cout << ht.search(key) << endl;
             break;
         case 4:
-            cout << ht.getEntries() << endl;
+            cout << "Current Element Count : " << ht.getEntries() << endl;
             break;
         case 5:
-            cout << ht.getLoadFactor() << endl;
+            cout << "Load Factor : " << ht.getLoadFactor() << endl;
             break;
         case 6:
             ht.display();

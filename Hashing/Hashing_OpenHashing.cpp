@@ -9,7 +9,7 @@ using namespace std;
 class HashTable
 {
 private:
-    const int tableSize; // Prime Numbered Size
+    const int tableSize;
     int count = 0;
     vector<list<pair<int, string>>> hashTable;
 
@@ -24,18 +24,41 @@ public:
     void insert(int key, const string &val)
     {
         int i = hashedIndex(key);
-        for(auto& keyVal:hashTable[i]){
-            if(keyVal.first == key){
+        for (auto &keyVal : hashTable[i])
+        {
+            if (keyVal.first == key)
+            {
                 keyVal.second = val;
                 return;
             }
         }
-        hashTable[i].emplace_back(key,val);
+        hashTable[i].emplace_back(key, val);
         count++;
     }
 
     void remove(int key);
-    string search(int key);
+    {
+        int i = hashedIndex(key);
+        auto it = find_if(hashTable[i].begin(), hashTable[i].end(), [key](const pair<int, string> &p)
+                          { return p.first == key; });
+        if (it != hashTable[i].end())
+        {
+            hashTable[i].erase(it);
+            count--;
+        }
+    }
+    string search(int key)
+    {
+        int i = hashedIndex(key);
+        for (auto &keyVal : hashTable[i])
+        {
+            if (keyVal.first == key)
+            {
+                return keyVal.second;
+            }
+        }
+        return "Key is not Found!";
+    }
     void display();
     int getEntries();
     double getLoadFactor();
@@ -47,7 +70,7 @@ int main()
     cout << "Enter hash table size (or 0 for default size 11): ";
     cin >> customSize;
 
-    HashTable ht(customSize ? customSize : 11);
+    HashTable ht(customSize ? customSize : 11); // Prime Numbered Size
     cout << "Hash Table\n";
     int key, ch;
     string val;

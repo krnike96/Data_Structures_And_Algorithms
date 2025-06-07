@@ -75,9 +75,36 @@ public:
         }
         cout<<"Key : "<<key<<" wasn't Found!"<<endl;
     }
-    
-    string search(int key);
-    void display();
+
+    string search(int key){
+        int i = hashedIndex(key);
+        int originalIndex = i;
+
+        while(table[i].status != EMPTY){
+            if(table[i].status == OCCUPIED && table[i].key == key){
+                return table[i].val;
+            }
+            i = (i + 1) % tableSize;
+            if(i == originalIndex){
+                break;
+            }
+        }
+        return "Key wasn't Found";
+    }
+
+    void display(){
+        cout<<"==========Hash Table Content : Linear Probing=========="<<endl;
+        for(int i = 0; i < tableSize; i++){
+            if(table[i].status == OCCUPIED){
+                cout<<"OCCUPIED : ["<<table[i].key<<"-"<<table[i].val<<"]";
+            }else if(table[i].status == DELETED){
+                cout<<"DELETED";
+            }else{
+                cout<<"EMPTY";
+            }
+            cout<<endl;
+        }
+    }
     int getEntries();
     double getLoadFactor();
 };

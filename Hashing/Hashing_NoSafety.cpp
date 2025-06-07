@@ -10,7 +10,7 @@ int hashedIndex(int key)
     return key % sizeTable;
 }
 
-void insert(int key, const string& val)
+void insert(int key, const string &val)
 {
     int i = hashedIndex(key);
     for (auto &keyVal : hashTable[i])
@@ -21,7 +21,7 @@ void insert(int key, const string& val)
             return;
         }
     }
-    hashTable[i].push_back(make_pair(key, val));
+    hashTable[i].emplace_back(key, val);
 }
 
 string search(int key)

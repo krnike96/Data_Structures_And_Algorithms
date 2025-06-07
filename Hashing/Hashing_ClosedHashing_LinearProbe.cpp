@@ -34,7 +34,30 @@ private:
 public:
     HashTable(int size) : tableSize(size), table(tableSize), count(0) {}
 
-    void insert(int key, const string &val);
+    void insert(int key, const string &val){
+        int i = hashedIndex(key);
+        int originalIndex = i;
+
+        while(table[i].status == OCCUPIED && table[i].key != key){
+            i = (i + 1) % tableSize;
+            if(i == originalIndex){
+                cout<<"Error : Hash Table is full for Key : "<<key<<endl;
+                return;
+            }
+        }
+
+        if(table[i].status == OCCUPIED && table[i].key == key){
+            cout<<"Key already exists, Updating to new value!"<<endl;
+            table[i].val = val;
+        }else{
+            table[i].key = key;
+            table[i].val = val;
+            table[i].status = OCCUPIED;
+            count++;
+            cout << "Inserted (Key: " << key << ", Value: \"" << val << "\") at index " << i << endl;
+        }
+    }
+    
     void remove(int key);
     string search(int key);
     void display();

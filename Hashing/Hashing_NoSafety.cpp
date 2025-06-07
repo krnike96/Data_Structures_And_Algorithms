@@ -13,6 +13,14 @@ int hashedIndex(int key)
 void insert(int key, string val)
 {
     int i = hashedIndex(key);
+    for (auto &keyVal : hashTable[i])
+    {
+        if (keyVal.first == key)
+        {
+            keyVal.second = val;
+            return;
+        }
+    }
     hashTable[i].push_back(make_pair(key, val));
 }
 

@@ -1,4 +1,3 @@
-// Hashing with Collision Safety using Open Hashing/Separate Chaining.
 #include <iostream>
 #include <vector>
 #include <list>
@@ -6,22 +5,33 @@
 #include <algorithm>
 
 using namespace std;
-const int tableSize = 11; // Prime Numbered Size
-int count = 0;
-vector<list<pair<int, string>>> hashTable(tableSize);
 
-int hashedIndex(int);
-void insert(int, const string &);
-void remove(int);
-string search(int);
-void display();
-int getEntries();
+class HashTable
+{
+private:
+    const int tableSize = 11;       //Prime Numbered Size
+    int count = 0;
+    vector<list<pair<int, string>>> hashTable;
+
+    int hashedIndex(int key);
+
+public:
+    HashTable();
+    void insert(int key, const string &val);
+    void remove(int key);
+    string search(int key);
+    void display();
+    int getEntries();
+    double getLoadFactor();
+};
 
 int main()
 {
+    HashTable ht;
     cout << "Hash Table\n";
     int key, ch;
     string val;
+
     while (true)
     {
         cout << "===========Hash Table Menu===========" << endl;
@@ -34,33 +44,35 @@ int main()
         cout << "7.Exit" << endl;
         cout << "Enter your Choice : ";
         cin >> ch;
+
         switch (ch)
         {
         case 1:
             cout << "Enter the Key : ";
             cin >> key;
             cout << "Enter the String Value : ";
+            cin.ignore();
             getline(cin, val);
-            insert(key, val);
+            ht.insert(key, val);
             break;
         case 2:
             cout << "Enter the Key : ";
             cin >> key;
-            remove(key);
+            ht.remove(key);
             break;
         case 3:
             cout << "Enter the Key : ";
             cin >> key;
-            search(key);
+            cout << ht.search(key) << endl;
             break;
         case 4:
-            cout << getEntries() << endl;
+            cout << ht.getEntries() << endl;
             break;
         case 5:
-            cout << getLoadFactor() << endl;
+            cout << ht.getLoadFactor() << endl;
             break;
         case 6:
-            display();
+            ht.display();
             break;
         case 7:
             cout << "Exiting..." << endl;

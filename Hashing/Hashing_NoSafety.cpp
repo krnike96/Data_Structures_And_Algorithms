@@ -10,7 +10,7 @@ int hashedIndex(int key)
     return key % sizeTable;
 }
 
-void insert(int key, string val)
+void insert(int key, const string& val)
 {
     int i = hashedIndex(key);
     for (auto &keyVal : hashTable[i])
@@ -37,6 +37,23 @@ string search(int key)
     return "Key is not Found!";
 }
 
+void remove(int key)
+{
+    int i = hashedIndex(key);
+    for (auto &keyVal : hashTable[i])
+    {
+        if (keyVal.first == key)
+        {
+            keyVal.first = -1;
+            keyVal.second = "";
+            cout << "Key removed successfully!" << endl;
+            return;
+        }
+    }
+    cout << "Key is not Found!" << endl;
+    return;
+}
+
 void display()
 {
     for (int i = 0; i < sizeTable; i++)
@@ -57,8 +74,9 @@ int main()
     {
         cout << "1.Insert" << endl;
         cout << "2.Search" << endl;
-        cout << "3.Display" << endl;
-        cout << "4.Exit" << endl;
+        cout << "3.Remove" << endl;
+        cout << "4.Display" << endl;
+        cout << "5.Exit" << endl;
         cout << "Enter your Choice : ";
         cin >> ch;
         switch (ch)
@@ -76,13 +94,17 @@ int main()
             cin >> key;
             cout << search(key) << endl;
             break;
-
         case 3:
+            cout << "Enter the Key to Remove : ";
+            cin >> key;
+            remove(key);
+            break;
+        case 4:
             cout << "Hash Table Elements : " << endl;
             display();
             break;
 
-        case 4:
+        case 5:
             cout << "Exiting..." << endl;
             return 0;
 

@@ -57,8 +57,25 @@ public:
             cout << "Inserted (Key: " << key << ", Value: \"" << val << "\") at index " << i << endl;
         }
     }
+
+    void remove(int key){
+        int i = hashedIndex(key);
+        int originalIndex = i;
+
+        while(table[i].status != EMPTY){
+            if(table[i].status == OCCUPIED && table[i].key == key){
+                table[i].status = DELETED;
+                count--;
+                cout<<"Removed Key : "<<key<<" from index : "<<i<<endl;
+            }
+            i = (i + 1) % tableSize;
+            if(i == originalIndex){
+                break;
+            }
+        }
+        cout<<"Key : "<<key<<" wasn't Found!"<<endl;
+    }
     
-    void remove(int key);
     string search(int key);
     void display();
     int getEntries();

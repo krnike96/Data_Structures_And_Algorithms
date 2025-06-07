@@ -59,7 +59,19 @@ public:
         }
         return "Key is not Found!";
     }
-    void display();
+    void display(){
+        for(int i = 0; i < tableSize; i++){
+            cout<<"List - "<< i <<" : ";
+            if(hashTable[i].empty()){
+                cout<<"Empty";
+            } else{
+                for(auto& keyVal:hashTable[i]){
+                    cout<<"["<<keyVal.first<<"-"<<keyVal.second<<"]";
+                }
+            }
+            cout<<endl;
+        }
+    }
     int getEntries();
     double getLoadFactor();
 };

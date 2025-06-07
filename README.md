@@ -33,6 +33,7 @@ Here are the data structures I've implemented so far:
   - Stack using Array
 - **Hashing**
   - Hashing NoSafety
+  - Hashing Open Hashing/Separate Chaining
 - **Sorting Algorithms**
   - Selection Sort
   - Bubble Sort

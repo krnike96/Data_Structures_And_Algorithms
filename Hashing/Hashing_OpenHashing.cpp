@@ -9,15 +9,31 @@ using namespace std;
 class HashTable
 {
 private:
-    const int tableSize = 11;       //Prime Numbered Size
+    const int tableSize; // Prime Numbered Size
     int count = 0;
     vector<list<pair<int, string>>> hashTable;
 
-    int hashedIndex(int key);
+    int hashedIndex(int key)
+    {
+        return abs(key) % tableSize;
+    }
 
 public:
-    HashTable();
-    void insert(int key, const string &val);
+    HashTable(int size) : tableSize(size), hashTable(size) {}
+
+    void insert(int key, const string &val)
+    {
+        int i = hashedIndex(key);
+        for(auto& keyVal:hashTable[i]){
+            if(keyVal.first == key){
+                keyVal.second = val;
+                return;
+            }
+        }
+        hashTable[i].emplace_back(key,val);
+        count++;
+    }
+
     void remove(int key);
     string search(int key);
     void display();
@@ -27,7 +43,11 @@ public:
 
 int main()
 {
-    HashTable ht;
+    int customSize;
+    cout << "Enter hash table size (or 0 for default size 11): ";
+    cin >> customSize;
+
+    HashTable ht(customSize ? customSize : 11);
     cout << "Hash Table\n";
     int key, ch;
     string val;

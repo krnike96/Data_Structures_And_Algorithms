@@ -31,6 +31,8 @@ Here are the data structures I've implemented so far:
   - Priority Queue (Max-Heap Based)
 - **Stack**
   - Stack using Array
+- **Hashing**
+  - Hashing NoSafety
 - **Sorting Algorithms**
   - Selection Sort
   - Bubble Sort

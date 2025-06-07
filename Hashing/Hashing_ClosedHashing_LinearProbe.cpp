@@ -67,6 +67,7 @@ public:
                 table[i].status = DELETED;
                 count--;
                 cout<<"Removed Key : "<<key<<" from index : "<<i<<endl;
+                return;
             }
             i = (i + 1) % tableSize;
             if(i == originalIndex){
@@ -105,8 +106,12 @@ public:
             cout<<endl;
         }
     }
-    int getEntries();
-    double getLoadFactor();
+    int getEntries(){
+        return count;
+    }
+    double getLoadFactor(){
+        return static_cast<double>(count) / tableSize;
+    }
 };
 
 int main()
@@ -120,7 +125,7 @@ int main()
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
     }
     HashTable ht(customSize);
-    int key, ch;
+    int key = 0, ch = -1;
     string val;
 
     while (true)
@@ -144,7 +149,7 @@ int main()
         {
         case 1:
             cout << "Enter the Key : ";
-            while (!(cin >> ch))
+            while (!(cin >> key))
             {
                 cout << "Invalid input. Please enter a number: ";
                 cin.clear();

@@ -36,6 +36,7 @@ Here are the data structures I've implemented so far:
   - Hashing Open Hashing/Separate Chaining
   - Hashing Closed Hashing/Open Addressing
     - Linear Probing 
+    - Quadratic Probing 
 - **Sorting Algorithms**
   - Selection Sort
   - Bubble Sort

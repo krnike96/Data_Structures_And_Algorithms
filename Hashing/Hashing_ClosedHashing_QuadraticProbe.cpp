@@ -89,8 +89,21 @@ public:
         }
         cout << "Key wasn't found!" << endl;
     }
+
+    string search(int key){
+        int attempt = ;
+        int i = hashedIndex(key);
+
+        while(table[i].status != EMPTY && attempt < tableSize){
+            if(table[i].status == OCCUPIED && table[i].key == key){
+                return table[i].val;
+            }
+            attempt++;
+            i = quadraticProbing(key,attempt);
+        }
+        return "Key wasn't found!";
+    }
     
-    string search(int key);
     void display();
     int getEntries()
     {

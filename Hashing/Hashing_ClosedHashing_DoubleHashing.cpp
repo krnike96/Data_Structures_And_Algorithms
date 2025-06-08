@@ -120,9 +120,33 @@ public:
         }
         cout<<"Key wasn't found!"<<endl;
     }
-    
-    string search(int key);
-    int display();
+
+    string search(int key){
+        int attempt = 0;
+        int i = hashedIndex(key);
+
+        while(table[i].status != EMPTY && attempt < tableSize){
+            if(table[i].status == OCCUPIED && table[i].key == key){
+                return table[i].val;
+            }
+            attempt++;
+            i = doubleHashingProbe(key,attempt);
+        }
+        return "Key wasn't found!";
+    }
+    int display(){
+        cout<<"=====Hash Table Content : Double Hashing Probe====="<<endl;
+        for(int i = 0; i < tableSize; i++){
+            if(table[i].status == OCCUPIED){
+                cout<<"OCCUPIED : ["<<table[i].key<<"-"<<table[i].val<<"]";
+            }else if(table[i].status == DELETED){
+                cout<<"DELETED";
+            }else{
+                cout<<"EMPTY";
+            }
+            cout<<endl;
+        }
+    }
     int getEntries();
     double getLoadFactor();
 };

@@ -5,78 +5,114 @@
 
 using namespace std;
 
-enum EntryStatus{
+enum EntryStatus
+{
     EMPTY,
     OCCUPIED,
     DELETED
 };
 
-struct HashTableEntry{
-    int key,count;
+struct HashTableEntry
+{
+    int key, count;
     string val;
     EntryStatus status;
 
-    HashTableEntry():key(-1),val(""),status(EMPTY){}
+    HashTableEntry() : key(-1), val(""), status(EMPTY) {}
 };
 
-class HashTable{
+class HashTable
+{
 private:
-int tableSize;
-int count;
-vector<HashTableEntry>table;
+    int tableSize;
+    int count;
+    vector<HashTableEntry> table;
 
-int GCD(int a,int b){
-    while(b != 0){
-        int temp = b;
-        b = a % b;
-        a = temp;
+    int GCD(int a, int b)
+    {
+        while (b != 0)
+        {
+            int temp = b;
+            b = a % b;
+            a = temp;
+        }
+        return a;
     }
-    return a;
-}
 
-int hashedIndex(int key){
-    return abs(key) % tableSize;
-}
+    int hashedIndex(int key)
+    {
+        return abs(key) % tableSize;
+    }
 
-int doubleHash(int key){
-    if(tableSize <= 1) return 1;
+    int doubleHash(int key)
+    {
+        if (tableSize <= 1)
+            return 1;
 
-    //Find largest number < tableSize that's coprime with tableSize
-    int step = 1;
-    for(int i = tableSize - 1; i > 1; i--){
-        if(GCD(i,tableSize) == 1){
-            step = i - (abs(key) % 1);
-            if(step <= 0){
-                step = i;
+        // Find largest number < tableSize that's coprime with tableSize
+        int step = 1;
+        for (int i = tableSize - 1; i > 1; i--)
+        {
+            if (GCD(i, tableSize) == 1)
+            {
+                step = i - (abs(key) % 1);
+                if (step <= 0)
+                {
+                    step = i;
+                }
+                break;
             }
-            break;
+        }
+        if (step <= 0 || GCD(step, tableSize) != 1)
+        {
+            step = 1;
+        }
+        return step;
+    }
+
+    int doubleHashingProbe(int key, int attempt)
+    {
+        int hash1 = hashedIndex(key);
+        int hash2 = doubleHash(key);
+        return (hash1 + attempt * hash2) % tableSize;
+    }
+
+public:
+    HashTable(int size) : tableSize(size), table(tableSize), count(0) {}
+
+    void insert(int key, const string &val)
+    {
+        int attempt = 0;
+        int i = hashedIndex(key);
+        while(table[i].status == OCCUPIED && table[i].key != key){
+            attempt++;
+            i = doubleHashingProbe(key,attempt);
+            if(attempt >= tableSize){
+                cout<<"Error : Hash Table is full for key : "<<key<<endl;
+                return;
+            }
+        }
+
+        if(table[i].status == OCCUPIED && table[i].key == key){
+            cout<<"Key already exists, Updating to new value!"<<endl;
+            table[i].val = val;
+        }else{
+            table[i].key = key;
+            table[i].val = val;
+            table[i].status = OCCUPIED;
+            count++;
+            cout<<"Inserted Key : "<<key<<" at index : "<<i<<" with probe attempts : "<<attempt<<endl;
         }
     }
-    if(step <= 0 || GCD(step,tableSize) != 1){
-        step = 1;
-    }
-    return step;
-}
-
-int doubleHashingProbing(int key,int attempt){
-    int hash1 = hashedIndex(key);
-    int hash2 = doubleHash(key);
-    return (hash1 + attempt * hash2) % tableSize;
-}
-public:
-
-HashTable(int size):tableSize(size),table(tableSize),count(0){}
-
-void insert(int key, const string&val);
-void remove(int key);
-string search(int key);
-int display();
-int getEntries();
-double getLoadFactor();
-
+    void remove(int key);
+    string search(int key);
+    int display();
+    int getEntries();
+    double getLoadFactor();
 };
 
-int main(){
+int main()
+{
     int customSize = 0;
     cout << "Enter custom size (Prime Number recommended) for the hash table : ";
     while (!(cin >> customSize) || customSize <= 0)

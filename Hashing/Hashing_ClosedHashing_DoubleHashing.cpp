@@ -104,7 +104,23 @@ public:
             cout<<"Inserted Key : "<<key<<" at index : "<<i<<" with probe attempts : "<<attempt<<endl;
         }
     }
-    void remove(int key);
+    void remove(int key){
+        int attempt = 0;
+        int i = hashedIndex(key);
+
+        while(table[i].status != EMPTY && attempt < tableSize){
+            if(table[i].status == OCCUPIED && table[i].key == key){
+                table[i].status = DELETED;
+                count--;
+                cout<<"Removed Key : "<<key<<" from index : "<<i<<endl;
+                return;
+            }
+            attempt++;
+            i = doubleHashingProbe(key,attempt);
+        }
+        cout<<"Key wasn't found!"<<endl;
+    }
+    
     string search(int key);
     int display();
     int getEntries();

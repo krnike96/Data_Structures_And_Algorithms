@@ -5,60 +5,97 @@
 
 using namespace std;
 
-enum EntryStatus{
+enum EntryStatus
+{
     EMPTY,
     OCCUPIED,
     DELETED
 };
 
-struct HashTableEntry{
-int key;
-string val;
-EntryStatus status;
+struct HashTableEntry
+{
+    int key;
+    string val;
+    EntryStatus status;
 
-HashTableEntry():key(-1),val(""),status(EMPTY){}
+    HashTableEntry() : key(-1), val(""), status(EMPTY) {}
 };
 
-class HashTable{
+class HashTable
+{
 private:
-int tableSize,count;
-vector<HashTableEntry>table;
+    int tableSize, count;
+    vector<HashTableEntry> table;
 
-int hashedIndex(int key){
-    return abs(key) % tableSize;
-}
-int quadraticProbing(int key, int attempt){
-    return (hashedIndex(key) + attempt * attempt) % tableSize;
-}
+    int hashedIndex(int key)
+    {
+        return abs(key) % tableSize;
+    }
+    int quadraticProbing(int key, int attempt)
+    {
+        return (hashedIndex(key) + attempt * attempt) % tableSize;
+    }
+
 public:
-HashTable(int size):tableSize(size),table(tableSize),count(0){}
+    HashTable(int size) : tableSize(size), table(tableSize), count(0) {}
 
-void insert(int key,const string& val);
-void remove(int key);
-string search(int key);
-void display();
-int getEntries(){
-    return count;
-}
-double getLoadFactor(){
-    return static_cast<double>(count) / tableSize;
-}
+    void insert(int key, const string &val)
+    {
+        int attempt = 0;
+        int i = hashedIndex(key);
+        
+
+        while(table[i].status == OCCUPIED && table[i].key != key){
+            attempt++;
+            i = quadraticProbing(key,attempt);
+            if(i >= tableSize){
+                cout<<"Error : Hash Table is full for key : "<<key<<endl;
+                return;
+            }
+        }
+
+        if(table[i].status == OCCUPIED && table[i].key == key){
+            cout<<"Key already exists, Updating to new value!"<<endl;
+            table[i].val = val;
+        }else{
+            table[i].status = OCCUPIED;
+            table[i].key = key;
+            table[i].val = val;
+            count++;
+            cout<<"Inserted Key : "<<key<<" at index : "<<i<<" with probe attempts : "<<attempt<<endl;
+        }
+    }
+    void remove(int key);
+    string search(int key);
+    void display();
+    int getEntries()
+    {
+        return count;
+    }
+    double getLoadFactor()
+    {
+        return static_cast<double>(count) / tableSize;
+    }
 };
 
-int main(){
+int main()
+{
     int customSize = 0;
-    cout<<"Enter custom size for the hash table : ";
-    while(!(cin>>customSize) || customSize <= 0){
-        cout<<"Invalid input, Please enter a positive integer : ";
+    cout << "Enter custom size for the hash table : ";
+    while (!(cin >> customSize) || customSize <= 0)
+    {
+        cout << "Invalid input, Please enter a positive integer : ";
         cin.clear();
-        cin.ignore(numeric_limits<streamsize>::max(),'\n');
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
     }
 
     HashTable ht(customSize);
-    int key = 0; ch = -1;
+    int key = 0;
+    ch = -1;
     string val;
 
-    while(true){
+    while (true)
+    {
         cout << "===========Hash Table Menu===========" << endl;
         cout << "1.Insert" << endl;
         cout << "2.Remove" << endl;

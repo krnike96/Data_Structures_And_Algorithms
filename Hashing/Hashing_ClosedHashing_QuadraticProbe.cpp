@@ -48,7 +48,7 @@ public:
         {
             attempt++;
             i = quadraticProbing(key, attempt);
-            if (i >= tableSize)
+            if (attempt >= tableSize)
             {
                 cout << "Error : Hash Table is full for key : " << key << endl;
                 return;
@@ -90,21 +90,43 @@ public:
         cout << "Key wasn't found!" << endl;
     }
 
-    string search(int key){
-        int attempt = ;
+    string search(int key)
+    {
+        int attempt = 0;
         int i = hashedIndex(key);
 
-        while(table[i].status != EMPTY && attempt < tableSize){
-            if(table[i].status == OCCUPIED && table[i].key == key){
+        while (table[i].status != EMPTY && attempt < tableSize)
+        {
+            if (table[i].status == OCCUPIED && table[i].key == key)
+            {
                 return table[i].val;
             }
             attempt++;
-            i = quadraticProbing(key,attempt);
+            i = quadraticProbing(key, attempt);
         }
         return "Key wasn't found!";
     }
-    
-    void display();
+
+    void display()
+    {
+        cout << "==========Hash Table Content : Quadratic Probe==========" << endl;
+        for (int i = 0; i < tableSize; i++)
+        {
+            if (table[i].status == OCCUPIED)
+            {
+                cout << "OCCUPIED: [" << table[i].key << "-" << table[i].val << "]";
+            }
+            else if (table[i].status == DELETED)
+            {
+                cout << "DELETED";
+            }
+            else
+            {
+                cout << "EMPTY";
+            }
+            cout << endl;
+        }
+    }
     int getEntries()
     {
         return count;
@@ -118,7 +140,7 @@ public:
 int main()
 {
     int customSize = 0;
-    cout << "Enter custom size for the hash table : ";
+    cout << "Enter custom size(Prime Number) for the hash table : ";
     while (!(cin >> customSize) || customSize <= 0)
     {
         cout << "Invalid input, Please enter a positive integer : ";
@@ -128,7 +150,7 @@ int main()
 
     HashTable ht(customSize);
     int key = 0;
-    ch = -1;
+    int ch = -1;
     string val;
 
     while (true)

@@ -84,71 +84,95 @@ public:
     {
         int attempt = 0;
         int i = hashedIndex(key);
-        while(table[i].status == OCCUPIED && table[i].key != key){
+        while (table[i].status == OCCUPIED && table[i].key != key)
+        {
             attempt++;
-            i = doubleHashingProbe(key,attempt);
-            if(attempt >= tableSize){
-                cout<<"Error : Hash Table is full for key : "<<key<<endl;
+            i = doubleHashingProbe(key, attempt);
+            if (attempt >= tableSize)
+            {
+                cout << "Error : Hash Table is full for key : " << key << endl;
                 return;
             }
         }
 
-        if(table[i].status == OCCUPIED && table[i].key == key){
-            cout<<"Key already exists, Updating to new value!"<<endl;
+        if (table[i].status == OCCUPIED && table[i].key == key)
+        {
+            cout << "Key already exists, Updating to new value!" << endl;
             table[i].val = val;
-        }else{
+        }
+        else
+        {
             table[i].key = key;
             table[i].val = val;
             table[i].status = OCCUPIED;
             count++;
-            cout<<"Inserted Key : "<<key<<" at index : "<<i<<" with probe attempts : "<<attempt<<endl;
+            cout << "Inserted Key : " << key << " at index : " << i << " with probe attempts : " << attempt << endl;
         }
     }
-    void remove(int key){
+    void remove(int key)
+    {
         int attempt = 0;
         int i = hashedIndex(key);
 
-        while(table[i].status != EMPTY && attempt < tableSize){
-            if(table[i].status == OCCUPIED && table[i].key == key){
+        while (table[i].status != EMPTY && attempt < tableSize)
+        {
+            if (table[i].status == OCCUPIED && table[i].key == key)
+            {
                 table[i].status = DELETED;
                 count--;
-                cout<<"Removed Key : "<<key<<" from index : "<<i<<endl;
+                cout << "Removed Key : " << key << " from index : " << i << endl;
                 return;
             }
             attempt++;
-            i = doubleHashingProbe(key,attempt);
+            i = doubleHashingProbe(key, attempt);
         }
-        cout<<"Key wasn't found!"<<endl;
+        cout << "Key wasn't found!" << endl;
     }
 
-    string search(int key){
+    string search(int key)
+    {
         int attempt = 0;
         int i = hashedIndex(key);
 
-        while(table[i].status != EMPTY && attempt < tableSize){
-            if(table[i].status == OCCUPIED && table[i].key == key){
+        while (table[i].status != EMPTY && attempt < tableSize)
+        {
+            if (table[i].status == OCCUPIED && table[i].key == key)
+            {
                 return table[i].val;
             }
             attempt++;
-            i = doubleHashingProbe(key,attempt);
+            i = doubleHashingProbe(key, attempt);
         }
         return "Key wasn't found!";
     }
-    int display(){
-        cout<<"=====Hash Table Content : Double Hashing Probe====="<<endl;
-        for(int i = 0; i < tableSize; i++){
-            if(table[i].status == OCCUPIED){
-                cout<<"OCCUPIED : ["<<table[i].key<<"-"<<table[i].val<<"]";
-            }else if(table[i].status == DELETED){
-                cout<<"DELETED";
-            }else{
-                cout<<"EMPTY";
+    void display()
+    {
+        cout << "=====Hash Table Content : Double Hashing Probe=====" << endl;
+        for (int i = 0; i < tableSize; i++)
+        {
+            if (table[i].status == OCCUPIED)
+            {
+                cout << "OCCUPIED : [" << table[i].key << "-" << table[i].val << "]";
             }
-            cout<<endl;
+            else if (table[i].status == DELETED)
+            {
+                cout << "DELETED";
+            }
+            else
+            {
+                cout << "EMPTY";
+            }
+            cout << endl;
         }
     }
-    int getEntries();
-    double getLoadFactor();
+    int getEntries()
+    {
+        return count;
+    }
+    double getLoadFactor()
+    {
+        return static_cast<double>(count) / tableSize;
+    }
 };
 
 int main()

@@ -43,29 +43,53 @@ public:
     {
         int attempt = 0;
         int i = hashedIndex(key);
-        
 
-        while(table[i].status == OCCUPIED && table[i].key != key){
+        while (table[i].status == OCCUPIED && table[i].key != key)
+        {
             attempt++;
-            i = quadraticProbing(key,attempt);
-            if(i >= tableSize){
-                cout<<"Error : Hash Table is full for key : "<<key<<endl;
+            i = quadraticProbing(key, attempt);
+            if (i >= tableSize)
+            {
+                cout << "Error : Hash Table is full for key : " << key << endl;
                 return;
             }
         }
 
-        if(table[i].status == OCCUPIED && table[i].key == key){
-            cout<<"Key already exists, Updating to new value!"<<endl;
+        if (table[i].status == OCCUPIED && table[i].key == key)
+        {
+            cout << "Key already exists, Updating to new value!" << endl;
             table[i].val = val;
-        }else{
+        }
+        else
+        {
             table[i].status = OCCUPIED;
             table[i].key = key;
             table[i].val = val;
             count++;
-            cout<<"Inserted Key : "<<key<<" at index : "<<i<<" with probe attempts : "<<attempt<<endl;
+            cout << "Inserted Key : " << key << " at index : " << i << " with probe attempts : " << attempt << endl;
         }
     }
-    void remove(int key);
+
+    void remove(int key)
+    {
+        int attempt = 0;
+        int i = hashedIndex(key);
+
+        while (table[i].status != EMPTY && attempt < tableSize)
+        {
+            if (table[i].status == OCCUPIED && table[i].key == key)
+            {
+                table[i].status = DELETED;
+                count--;
+                cout << "Removed key : " << key << " from index : " << i << endl;
+                return;
+            }
+            attempt++;
+            i = quadraticProbing(key, attempt);
+        }
+        cout << "Key wasn't found!" << endl;
+    }
+    
     string search(int key);
     void display();
     int getEntries()

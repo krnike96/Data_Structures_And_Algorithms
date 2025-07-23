@@ -273,6 +273,23 @@ void bubbleSort()
                     // so no need to check that element
     } while (swap);
 }
+
+void reverseLL(){
+    if(!head) return;
+    struct node * prev = NULL;
+    struct node * curr = head;
+    struct node * next_n = NULL;
+
+    while(curr){
+        next_n = curr->next;
+        curr->next =  prev;
+        prev = curr;
+        curr = next_n;
+    }
+    head = prev;
+    printf("Singly Linked List Reversed\n");
+}
+
 void display()
 {
     
@@ -314,7 +331,8 @@ int main()
         printf("\n9.Update at Specific Position");
         printf("\n10.Sort(Elemental)");
         printf("\n11.Search(Linear)");
-        printf("\n12.Display List");
+        printf("\n12.Reverse");
+        printf("\n13.Display List");
         printf("\n0.Exit");
         printf("\nEnter Your Choice : ");
         scanf("%d", &choice);
@@ -384,6 +402,10 @@ int main()
             search(emt);
             break;
         case 12:
+            reverseLL();
+            display();
+            break;
+        case 13:
             display();
             break;
         case 0:

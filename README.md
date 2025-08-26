@@ -43,6 +43,7 @@ Here are the data structures I've implemented so far:
   - Bubble Sort
   - Insertion Sort
   - Merge Sort
+  - Quick Sort
 
 *(I'll continue to add more data structures as I learn!)*
 

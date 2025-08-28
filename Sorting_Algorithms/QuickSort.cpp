@@ -3,7 +3,13 @@
 #include <algorithm>
 using namespace std;
 
-int lomutoPartition(vector<int> &arr, int low, int high)
+/*other partitioning algorithms are also there:
+ *Randomized Pivot - Security
+ *Three-Way Partitioning(Dutch National Flag) - Duplicates
+ *Median of Three - Balanced
+ *Dual-Pivot - Modern Standard
+*/
+int lomutoPartition(vector<int> &arr, int low, int high) // -Educational
 {
     int pivot = arr[high];      //Right most element is the Pivot
     int i = low - 1;            //Index of the smaller element
@@ -21,7 +27,7 @@ int lomutoPartition(vector<int> &arr, int low, int high)
     return i + 1;               //Return partition index
 }
 
-int hoarePartition(vector<int> &arr, int low, int high)
+int hoarePartition(vector<int> &arr, int low, int high) // - Classic Performance
 {
     int pivot = arr[low]; // first element is pivot
     int i = low - 1;

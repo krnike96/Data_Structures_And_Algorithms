@@ -44,6 +44,9 @@ Here are the data structures I've implemented so far:
   - Insertion Sort
   - Merge Sort
   - Quick Sort
+- **Searching Algorithms**
+  - Linear Search
+  - Binary Search
 
 *(I'll continue to add more data structures as I learn!)*
 

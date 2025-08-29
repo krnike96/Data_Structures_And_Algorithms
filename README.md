@@ -6,6 +6,7 @@ Welcome to my Data Structures repository! This repository is a collection of my 
 
 - [About](#about)
 - [Data Structures Covered](#data-structures-covered)
+- [Algorithms Covered](#Algorithms-covered)
 - [Languages Used](#languages-used)
 - [How to Use](#how-to-use)
 - [Contributing](#contributing)
@@ -38,6 +39,11 @@ Here are the data structures I've implemented so far:
     - Linear Probing 
     - Quadratic Probing 
     - Double Hashing Probing 
+
+## Algorithms Covered
+
+Here are the data structures I've implemented so far:
+
 - **Sorting Algorithms**
   - Selection Sort
   - Bubble Sort

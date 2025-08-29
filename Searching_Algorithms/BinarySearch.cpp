@@ -45,12 +45,12 @@ void printArr(vector<int> &arr)
     return;
 }
 
-void sortSmallArr(vector<int> &arr)
+void sortSmallArr(vector<int> &arr, int left, int right)
 { // using Insertion Sort for Smaller Arrays
     int size = arr.size();
     if (!size)
         return;
-    for (int i = 1; i < size; i++)
+    for (int i = left + 1; i <= right; i++)
     {
         int key = arr[i];
         int j = i;
@@ -91,6 +91,11 @@ void sortLargeArr(vector<int> &arr, int left, int right)
 { // Using Quick Sort for Larger Arrays
     if (left < right)
     {
+        if (right - left + 1 <= 10)
+        {
+            sortSmallArr(arr, left, right); // Using Insertion Sort to avoid quick sort's recursion overhead for smaller subArrays
+            return;
+        }
         int pivot = partition(arr, left, right);
         sortLargeArr(arr, left, pivot);
         sortLargeArr(arr, pivot + 1, right);
@@ -118,7 +123,7 @@ int main()
     if (size <= 10)
     {
         cout << "Using Insertion Sort for Sorting in Acsending Order(size <= 10)." << endl;
-        sortSmallArr(arr);
+        sortSmallArr(arr, 0, size - 1);
     }
     else
     {

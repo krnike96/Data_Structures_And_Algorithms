@@ -13,7 +13,7 @@ Welcome to my Data Structures repository! This repository is a collection of my 
 
 ## About
 
-This repository is a personal project where I document my progress in learning and implementing data structures. It serves as a reference for myself and anyone interested in understanding how data structures work and how they can be implemented in code.
+This repository is a personal project where I document my progress in learning and implementing data structures and algorithms. It serves as a reference for myself and anyone interested in understanding how data structures work and how they can be implemented in code.
 
 Created on : March 2025
 
@@ -42,7 +42,7 @@ Here are the data structures I've implemented so far:
 
 ## Algorithms Covered
 
-Here are the data structures I've implemented so far:
+Here are the algorithms I've implemented so far:
 
 - **Sorting Algorithms**
   - Selection Sort
@@ -54,7 +54,7 @@ Here are the data structures I've implemented so far:
   - Linear Search
   - Binary Search
 
-*(I'll continue to add more data structures as I learn!)*
+*(I'll continue to add more data structures and algorithms(DSA) as I learn!)*
 
 ## Languages Used
 

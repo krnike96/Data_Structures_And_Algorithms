@@ -54,7 +54,7 @@ Here are the algorithms I've implemented so far:
   - Linear Search
   - Binary Search
 
-- **Searching Algorithms**
+- **String Algorithms**
   - Naive String Matching Algorithm
 
 *(I'll continue to add more data structures and algorithms(DSA) as I learn!)*

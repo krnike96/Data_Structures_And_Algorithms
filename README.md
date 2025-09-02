@@ -56,6 +56,7 @@ Here are the algorithms I've implemented so far:
 
 - **String Algorithms**
   - Naive String Matching Algorithm
+  - Rabin Karp String Matching ALgorithm
 
 *(I'll continue to add more data structures and algorithms(DSA) as I learn!)*
 

@@ -50,6 +50,7 @@ Here are the algorithms I've implemented so far:
   - Insertion Sort
   - Merge Sort
   - Quick Sort
+  - Heap Sort
 - **Searching Algorithms**
   - Linear Search
   - Binary Search

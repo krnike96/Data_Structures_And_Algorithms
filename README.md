@@ -56,7 +56,7 @@ Here are the algorithms I've implemented so far:
   - Binary Search
 
 - **String Algorithms**
-  - Naive String Matching Algorithm
+  - Naïve String Matching Algorithm
   - Rabin Karp String Matching Algorithm
   - KMP String Matching Algorithm
 

@@ -60,6 +60,9 @@ Here are the algorithms I've implemented so far:
   - Rabin Karp String Matching Algorithm
   - KMP String Matching Algorithm
 
+- **Greedy Algorithms**
+  - Fractional-Knapsack
+
 *(I'll continue to add more data structures and algorithms(DSA) as I learn!)*
 
 ## Languages Used

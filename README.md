@@ -76,7 +76,7 @@ Here are the algorithms I've implemented so far:
 
 1. **Clone the Repository:**
    ```bash
-   git clone https://github.com/krnike96/Data_Structures.git
+   git clone https://github.com/krnike96/Data_Structures_And_Algorithms.git
 
 ## Contributing
 
@@ -87,4 +87,4 @@ Contributions are welcome and greatly appreciated! If you'd like to contribute t
 
 2. **Clone the Repository:**
    ```bash
-   git clone https://github.com/krnike96/Data_Structures.git
+   git clone https://github.com/krnike96/Data_Structures_And_Algorithms.git

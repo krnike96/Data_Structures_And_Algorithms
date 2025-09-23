@@ -44,7 +44,7 @@ int main()
     if (n <= 0)
     {
         cout << "Number of items must be positive.\n";
-        return 1;
+        return main();
     }
 
     vector<Item> items(n);

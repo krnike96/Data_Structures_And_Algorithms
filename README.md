@@ -15,7 +15,7 @@ Welcome to my Data Structures and Algorithms repository! This repository is a co
 
 This repository is a personal project where I document my progress in learning and implementing data structures and algorithms. It serves as a reference for myself and anyone interested in understanding how data structures work and how they can be implemented in code.
 
-Created on : March 2025
+Created on : March, 2025
 
 ## Data Structures Covered
 
@@ -67,8 +67,8 @@ Here are the algorithms I've implemented so far:
 
 ## Languages Used
 
-- **C**
 - **C++**
+- **C**
 
 *(Feel free to suggest or contribute implementations in other languages!)*
 

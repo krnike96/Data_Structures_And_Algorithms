@@ -63,6 +63,9 @@ Here are the algorithms I've implemented so far:
 - **Greedy Algorithms**
   - Fractional-Knapsack
 
+- **Backtracking Algorithms**
+  - Knight Tour on Chess board
+
 *(I'll continue to add more data structures and algorithms(DSA) as I learn!)*
 
 ## Languages Used

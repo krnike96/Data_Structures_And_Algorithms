@@ -45,26 +45,26 @@ Here are the data structures I've implemented so far:
 
 Here are the algorithms I've implemented so far:
 
-- **Sorting Algorithms**
+- **Sorting**
   - Selection Sort
   - Bubble Sort
   - Insertion Sort
   - Merge Sort
   - Quick Sort
   - Heap Sort
-- **Searching Algorithms**
+- **Searching**
   - Linear Search
   - Binary Search
 
-- **String Algorithms**
+- **String**
   - Naïve String Matching Algorithm
   - Rabin Karp String Matching Algorithm
   - KMP String Matching Algorithm
 
-- **Greedy Algorithms**
+- **Greedy**
   - Fractional-Knapsack
 
-- **Backtracking Algorithms**
+- **Backtracking**
   - Knight Tour on Chess board
 
 *(I'll continue to add more data structures and algorithms(DSA) as I learn!)*
@@ -88,9 +88,5 @@ Contributions are welcome and greatly appreciated! If you'd like to contribute t
 
 1. **Fork the Repository:**
    Click the "Fork" button at the top right of this repository to create your own copy.
-
-2. **Clone the Repository:**
-   ```bash
-   git clone https://github.com/krnike96/Data_Structures_And_Algorithms.git
 
 ## End of File

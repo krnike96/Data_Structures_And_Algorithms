@@ -74,8 +74,6 @@ Here are the algorithms I've implemented so far:
 - **C++**
 - **C**
 
-*(Feel free to suggest or contribute implementations in other languages!)*
-
 ## How to Use
 
 1. **Clone the Repository:**

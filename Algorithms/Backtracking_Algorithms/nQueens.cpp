@@ -1,72 +1,76 @@
-#include <iostream>
-#include <vector>
+#include <bits/stdc++.h>
 
-class NQueensClassic {
-    int totalSolutions = 0;
+class NQueens {
+    int count = 0;
+    int full_mask;
+    std::vector<int> board;
 
 public:
     void solve(int n) {
-        // board[row][col] will be 1 if a queen is there, 0 otherwise
-        std::vector<std::vector<int>> board(n, std::vector<int>(n, 0));
-        backtrack(board, 0, n);
-        std::cout << "\nTotal solutions: " << totalSolutions << std::endl;
+        count = 0;
+        full_mask = (1 << n) - 1;
+        board.resize(n);
+        
+        std::cout << "Finding all solutions for " << n << " queens...\n\n";
+        solveRecursive(0, 0, 0, 0, n);
+        
+        std::cout << "\nTotal solutions found: " << count << std::endl;
     }
 
 private:
-    // Function to check if it's safe to place a queen at board[row][col]
-    bool isSafe(std::vector<std::vector<int>>& board, int row, int col, int n) {
-        for (int i = 0; i < row; i++) {
-            if (board[i][col]) return false;
-        }
-
-        for (int i = row, j = col; i >= 0 && j >= 0; i--, j--) {
-            if (board[i][j]) return false;
-        }
-
-        for (int i = row, j = col; i >= 0 && j < n; i--, j++) {
-            if (board[i][j]) return false;
-        }
-
-        return true;
-    }
-
-    void printBoard(const std::vector<std::vector<int>>& board, int n) {
-        totalSolutions++;
-        std::cout << "Solution #" << totalSolutions << ":\n";
+    void printBoard(int n) {
+        count++;
+        std::cout << "Solution #" << count << ":" << std::endl;
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n; j++) {
-                std::cout << (board[i][j] ? " Q " : " . ");
+                if (board[i] == j) 
+                    std::cout << " Q ";
+                else 
+                    std::cout << " . ";
             }
-            std::cout << "\n";
+            std::cout << std::endl;
         }
-        std::cout << "-----------------------\n";
+        std::cout << "-----------------------" << std::endl;
     }
 
-    void backtrack(std::vector<std::vector<int>>& board, int row, int n) {
-        if (row == n) {
-            printBoard(board, n);
+    void solveRecursive(int row, int cols, int ld, int rd, int n) {
+        if (cols == full_mask) {
+            printBoard(n);
             return;
         }
 
-        // Try placing a queen in each column of the current row
-        for (int col = 0; col < n; col++) {
-            if (isSafe(board, row, col, n)) {
-                board[row][col] = 1;
+        //find all free positions in the current row
+        int pos = full_mask & (~(cols | ld | rd));
 
-                backtrack(board, row + 1, n);
+        while (pos) {
+            // Get the rightmost set bit (the first available column)
+            int bit = pos & -pos;
+            
+            // Determining the column index for printing purposes
+            int col_index = 0;
+            int temp_bit = bit;
+            while (temp_bit >>= 1) col_index++;
+            
+            board[row] = col_index; // Record position
+            
+            pos -= bit; // Mark this column as "tried"
 
-                board[row][col] = 0;
-            }
+            // Recurse: shift diagonals for the next row
+            solveRecursive(row + 1, cols | bit, (ld | bit) << 1, (rd | bit) >> 1, n);
         }
     }
 };
 
 int main() {
     int n;
-    std::cout << "Enter N: ";
-    std::cin >> n;
+    std::cout << "Enter the size of the board (N): ";
+    if (!(std::cin >> n) || n <= 0) {
+        std::cout << "Please enter a valid positive integer." << std::endl;
+        return 1;
+    }
 
-    NQueensClassic solver;
+    NQueens solver;
     solver.solve(n);
+
     return 0;
 }

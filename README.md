@@ -66,6 +66,7 @@ Here are the algorithms I've implemented so far:
 
 - **Backtracking**
   - Knight Tour on Chess board
+  - N-Queens on Chess board
 
 *(I'll continue to add more data structures and algorithms(DSA) as I learn!)*
 

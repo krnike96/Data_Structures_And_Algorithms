@@ -81,11 +81,8 @@ Here are the algorithms I've implemented so far:
    ```bash
    git clone https://github.com/krnike96/Data_Structures_And_Algorithms.git
 
-## Contributing
 
-Contributions are welcome and greatly appreciated! If you'd like to contribute to this repository, please follow these steps:
-
-1. **Fork the Repository:**
+**Fork the Repository:**
    Click the "Fork" button at the top right of this repository to create your own copy.
 
 ## End of File

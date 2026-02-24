@@ -9,7 +9,6 @@ Welcome to my Data Structures and Algorithms repository! This repository is a co
 - [Algorithms Covered](#Algorithms-covered)
 - [Languages Used](#languages-used)
 - [How to Use](#how-to-use)
-- [Contributing](#contributing)
 
 ## About
 

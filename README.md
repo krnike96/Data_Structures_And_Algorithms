@@ -1,6 +1,6 @@
 # Data Structures and Algorithms Repository
 
-Welcome to my Data Structures and Algorithms repository! This repository is a collection of my learning journey and implementations of various data structures and algorithms in programming. Whether you're here to learn, contribute, or just explore, I hope you find this repository helpful!
+Welcome to my Data Structures and Algorithms repository! This repository is a collection of my learning journey and implementations of various data structures and algorithms in programming. Whether you're here to learn, or just explore, I hope you find this repository helpful!
 
 ## 📚 Table of Contents
 

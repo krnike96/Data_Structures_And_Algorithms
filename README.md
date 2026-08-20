@@ -74,6 +74,7 @@ Here are the algorithms I've implemented so far:
 
 - **C++**
 - **C**
+- **Java**
 
 ## How to Use
 

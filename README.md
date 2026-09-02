@@ -39,6 +39,8 @@ Here are the data structures I've implemented so far:
     - Linear Probing 
     - Quadratic Probing 
     - Double Hashing Probing 
+- **Tree**
+  - Binary Search Tree
 
 ## Algorithms Covered
 
@@ -66,14 +68,12 @@ Here are the algorithms I've implemented so far:
 - **Backtracking**
   - Knight Tour on Chess board
   - N-Queens on Chess board
-  - (More Coming soon)
 
 *(I'll continue to add more data structures and algorithms(DSA) as I learn!)*
 
 ## Languages Used
 
-- **C++**
-- **C**
+- **C/C++**
 - **Java**
 
 ## How to Use
